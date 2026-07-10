@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Villa', href: '#villa' },
+  { label: 'The Retreat', href: '#villa' },
+  { label: 'Spaces', href: '#villa-experience' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Amenities', href: '#amenities' },
   { label: 'Reviews', href: '#reviews' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Surroundings', href: '#nearby' },
 ];
 
 export default function Navbar() {
@@ -14,7 +15,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -22,47 +23,38 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
+        initial={{ y: -80 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.8, delay: 2.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+        transition={{ duration: 1, delay: 2.2, ease: [0.25, 1, 0.5, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-          scrolled
-            ? 'glass-dark py-3'
-            : 'bg-transparent py-6'
+          scrolled ? 'glass-dark py-4 shadow-lg' : 'bg-transparent py-8'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+          
           {/* Logo */}
-          <a href="#home" className="flex items-baseline gap-1.5">
+          <a href="#home" className="flex items-baseline gap-2 group">
             <span
-              className="text-2xl lg:text-3xl tracking-[0.08em]"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontWeight: 300,
-                color: '#C9A74A',
-              }}
+              className="text-3xl lg:text-4xl tracking-[0.05em] transition-colors duration-500 text-[var(--color-gold)]"
+              style={{ fontFamily: 'var(--font-heading)', fontWeight: 300 }}
             >
               SaGa
             </span>
             <span
-              className="text-lg lg:text-xl tracking-[0.25em]"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontWeight: 300,
-                color: scrolled ? '#FDFBF8' : '#FDFBF8',
-              }}
+              className="text-xl lg:text-2xl tracking-[0.25em] text-[var(--color-warm-white)] font-light transition-colors duration-500"
+              style={{ fontFamily: 'var(--font-heading)' }}
             >
               Montana
             </span>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[0.65rem] font-medium tracking-[0.25em] uppercase text-white/70 hover:text-[#C9A74A] transition-colors duration-500"
+                className="text-[0.65rem] font-light tracking-[0.3em] uppercase text-white/85 hover:text-[var(--color-gold)] transition-colors duration-500"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 {link.label}
@@ -70,36 +62,39 @@ export default function Navbar() {
             ))}
             <a
               href="#booking"
-              className="ml-4 px-6 py-2.5 text-[0.6rem] font-semibold tracking-[0.3em] uppercase glass-dark rounded-none text-[#C9A74A] hover:bg-[#C9A74A] hover:text-[#161616] transition-all duration-500"
-              style={{ border: '1px solid rgba(201,167,74,0.4)' }}
+              className="ml-4 px-8 py-3 text-[0.65rem] font-semibold tracking-[0.3em] uppercase transition-all duration-500 rounded-full bg-transparent text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-charcoal)]"
+              style={{
+                fontFamily: 'var(--font-body)',
+                border: '1px solid var(--color-gold)',
+              }}
             >
               Reserve
             </a>
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* Mobile Hamburg */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="lg:hidden flex flex-col gap-2 p-2 z-50 relative cursor-pointer"
             aria-label="Toggle menu"
           >
             <motion.span
-              animate={mobileOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-px bg-white"
+              animate={mobileOpen ? { rotate: 45, y: 7, backgroundColor: '#D4AF37' } : { rotate: 0, y: 0, backgroundColor: '#FDFBF8' }}
+              className="block w-6 h-[1px]"
             />
             <motion.span
-              animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="block w-6 h-px bg-white"
+              animate={mobileOpen ? { opacity: 0 } : { opacity: 1, backgroundColor: '#FDFBF8' }}
+              className="block w-6 h-[1px]"
             />
             <motion.span
-              animate={mobileOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              className="block w-6 h-px bg-white"
+              animate={mobileOpen ? { rotate: -45, y: -7, backgroundColor: '#D4AF37' } : { rotate: 0, y: 0, backgroundColor: '#FDFBF8' }}
+              className="block w-6 h-[1px]"
             />
           </button>
         </div>
       </motion.header>
 
-      {/* Mobile Menu — Full screen overlay */}
+      {/* Mobile Full Screen Menu Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -107,8 +102,8 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-8"
-            style={{ background: 'rgba(22,22,22,0.97)' }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6"
+            style={{ background: 'rgba(17,17,17,0.98)' }}
           >
             {navLinks.map((link, i) => (
               <motion.a
@@ -117,9 +112,9 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
-                className="text-3xl tracking-[0.15em] text-white/80 hover:text-[#C9A74A] transition-colors"
+                exit={{ opacity: 0, y: -25 }}
+                transition={{ duration: 0.4, delay: i * 0.06 }}
+                className="text-2xl tracking-[0.2em] text-white/80 hover:text-[var(--color-gold)] transition-colors"
                 style={{ fontFamily: 'var(--font-heading)', fontWeight: 300 }}
               >
                 {link.label}
@@ -130,11 +125,11 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.5 }}
-              className="mt-4 px-10 py-3 text-xs tracking-[0.3em] uppercase text-[#C9A74A] transition-all duration-500"
+              transition={{ duration: 0.4, delay: 0.4 }}
+              className="mt-6 px-10 py-3.5 text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-gold)] rounded-full transition-all duration-500"
               style={{
                 fontFamily: 'var(--font-body)',
-                border: '1px solid rgba(201,167,74,0.5)',
+                border: '1px solid var(--color-gold)',
               }}
             >
               Reserve Your Stay

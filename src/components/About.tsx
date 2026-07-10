@@ -2,11 +2,11 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   return (
-    <section id="villa" className="section-luxury bg-[var(--color-parchment)] overflow-hidden">
+    <section id="villa" className="section-luxury bg-[var(--color-ivory)] overflow-hidden">
       <div className="max-w-7xl mx-auto">
-
-        {/* Top: Eyebrow + Heading — editorial style */}
-        <div className="max-w-3xl mb-20">
+        
+        {/* Editorial Eyebrow and Main Serif Headline */}
+        <div className="max-w-4xl mb-24">
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -14,96 +14,89 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="eyebrow-dark mb-6"
           >
-            The Retreat
+            The Sanctuary
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
             className="heading-luxury"
-            style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
+            style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4.8rem)' }}
           >
-            A sanctuary of stillness,
-            <br />
-            <em style={{ fontWeight: 300, color: 'var(--color-champagne)' }}>designed for the discerning few.</em>
+            A sanctuary where mountains meet <span className="italic text-[var(--color-gold)] font-light">luxury design</span>.
           </motion.h2>
         </div>
 
-        {/* Asymmetric Grid: Large image + text */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-4 items-start">
-          {/* Large Image — spans 7 cols */}
+        {/* Asymmetrical Layout Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+          
+          {/* Main Visual Component: Large portrait view */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="lg:col-span-7 overflow-hidden image-reveal"
+            transition={{ duration: 1.2 }}
+            className="lg:col-span-7 overflow-hidden rounded-[28px] shadow-2xl relative image-reveal group"
           >
             <img
               src="/images/living-room-day.jpeg"
-              alt="SaGa Montana Premium Living Room"
-              className="w-full h-[50vh] lg:h-[70vh] object-cover"
+              alt="Luxury Living Room at SaGa Montana"
+              className="w-full h-[550px] lg:h-[750px] object-cover"
               loading="lazy"
             />
+            {/* Absolute positioning detail overlay */}
+            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all duration-700" />
           </motion.div>
 
-          {/* Text Panel — spans 5 cols */}
+          {/* Descriptive Content & Details */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="lg:col-span-5 flex flex-col justify-center lg:pl-12 lg:pr-4 py-8 lg:py-16"
+            transition={{ duration: 1.2, delay: 0.2 }}
+            className="lg:col-span-5 flex flex-col lg:pl-16 py-8 lg:py-16 justify-center"
           >
-            <div className="gold-divider mb-8" />
+            <div className="gold-divider mb-10" />
+
+            <h3
+              className="text-2xl md:text-3xl font-light mb-8 text-[var(--color-charcoal)]"
+              style={{ fontFamily: 'var(--font-heading)' }}
+            >
+              Curated for the Discerning
+            </h3>
 
             <p
-              className="text-sm md:text-base leading-[1.9] text-[var(--color-ash)] mb-8"
+              className="text-sm md:text-base leading-[2] text-[var(--color-ash)] mb-8"
               style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
-              Tucked away in the serene hills of Karla, near the ancient
-              Ekvira Temple, SaGa Montana offers the ultimate combination
-              of designer interiors and natural beauty. Every detail —
-              from the curated furnishings to the panoramic mountain
-              views — has been crafted for those who appreciate the art
-              of living well.
+              Nestled near the quiet ranges of Karla, SaGa Montana is an architectural masterpiece designed to let you disconnect from the bustle and reconnect with the serene rhythm of nature. Every space, from the high-vaulted mezzanine to the sun-soaked decks, uses organic materials, custom lighting, and bespoke furnishings to create a warm luxury experience.
             </p>
 
             <p
-              className="text-sm md:text-base leading-[1.9] text-[var(--color-ash)] mb-10"
+              className="text-sm md:text-base leading-[2] text-[var(--color-ash)] mb-12"
               style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
-              This boutique villa serves as a perfect escape for families
-              and friends seeking luxury, space, and a breath of fresh
-              mountain air — just hours from Mumbai and Pune.
+              Immerse yourself in panoramic mountain views, step out into a private garden sit-out, or plunge into the hillside swimming pool. This is private luxury villa living, redefined.
             </p>
 
-            {/* Minimal Stats */}
-            <div className="flex gap-12">
+            {/* Spec grid */}
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-[var(--color-stone)]">
               {[
-                { num: '2', label: 'Bedrooms' },
-                { num: '8', label: 'Max Guests' },
-                { num: '∞', label: 'Views' },
+                { number: '2', label: 'Beds' },
+                { number: '8', label: 'Guests' },
+                { number: '100%', label: 'Privacy' },
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <span
-                    className="text-3xl md:text-4xl mb-1"
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontWeight: 300,
-                      color: 'var(--color-champagne)',
-                    }}
+                    className="text-4xl text-[var(--color-gold-dark)]"
+                    style={{ fontFamily: 'var(--font-heading)', fontWeight: 300 }}
                   >
-                    {stat.num}
+                    {stat.number}
                   </span>
                   <span
-                    className="text-[0.6rem] tracking-[0.3em] uppercase"
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      color: 'var(--color-ash-light)',
-                      fontWeight: 500,
-                    }}
+                    className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-ash)] mt-2"
+                    style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
                   >
                     {stat.label}
                   </span>
@@ -113,33 +106,34 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Secondary Image Row — two offset images */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        {/* Secondary Asymmetrical offset gallery rows */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="overflow-hidden image-reveal md:mt-16"
+            transition={{ duration: 1 }}
+            className="overflow-hidden rounded-[28px] shadow-xl image-reveal md:mt-20"
           >
             <img
               src="/images/balcony-mountain-view.jpeg"
-              alt="Mountain View from Balcony"
-              className="w-full h-[35vh] md:h-[45vh] object-cover"
+              alt="Scenic Mountain view balcony"
+              className="w-full h-[400px] object-cover"
               loading="lazy"
             />
           </motion.div>
+          
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="overflow-hidden image-reveal"
+            transition={{ duration: 1, delay: 0.15 }}
+            className="overflow-hidden rounded-[28px] shadow-xl image-reveal"
           >
             <img
               src="/images/balcony-sitout.jpeg"
-              alt="Private Balcony Sitout"
-              className="w-full h-[35vh] md:h-[45vh] object-cover"
+              alt="Private sitout balcony"
+              className="w-full h-[400px] object-cover"
               loading="lazy"
             />
           </motion.div>

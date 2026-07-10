@@ -1,71 +1,81 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const villaImages = [
-  { src: '/images/second-bedroom.jpeg', caption: 'Master Suite' },
-  { src: '/images/mezzanine-bedroom.jpeg', caption: 'Mezzanine Loft' },
-  { src: '/images/kitchen-full.jpeg', caption: 'Designer Kitchen' },
-  { src: '/images/entrance-hallway.jpeg', caption: 'Grand Entrance' },
-  { src: '/images/living-room-night.jpeg', caption: 'Evening Ambiance' },
+const spacePhotos = [
+  { src: '/images/second-bedroom.jpeg', title: 'The Master Suite', desc: 'Curated organic textures, premium bed linen, and wide glass doors opening to mountain views.' },
+  { src: '/images/mezzanine-bedroom.jpeg', title: 'The Mezzanine Loft', desc: 'An intimate architectural loft space perfect for extra guests or late night stories.' },
+  { src: '/images/kitchen-full.jpeg', title: 'The Designer Kitchen', desc: 'Completely equipped with premium cookware, RO purifier, double-door fridge, and ready-to-use gas stove.' },
+  { src: '/images/entrance-hallway.jpeg', title: 'The Entrance Foyer', desc: 'A grand welcoming hallway utilizing indirect warm lighting and raw wood highlights.' },
+  { src: '/images/living-room-night.jpeg', title: 'The Lounge at Dusk', desc: 'Plush custom seating looking out onto the lights of Karla.' },
+];
+
+const houseRules = [
+  { title: 'Tranquil Environment', desc: 'Respect the peaceful local community. Sound levels should remain indoor-focused after 10 PM.' },
+  { title: 'Maximum Occupancy', desc: 'Designed to host up to 8 guests. Prior registration is required for security protocols.' },
+  { title: 'Pet Policy', desc: 'To preserve the bespoke furniture and layout, pets are not allowed inside the villa premises.' },
+  { title: 'Strict Cleaning Code', desc: 'We request guests to treat this designer space with respect. Charges may apply for deep staining.' },
 ];
 
 export default function VillaExperience() {
-  const [activeIdx, setActiveIdx] = useState(0);
+  const [activeSpace, setActiveSpace] = useState(0);
 
   return (
-    <section id="villa-experience" className="bg-[var(--color-noir)] overflow-hidden">
-      {/* Full-width immersive image slider */}
-      <div className="relative h-[70vh] md:h-[85vh]">
+    <section id="villa-experience" className="bg-[var(--color-charcoal)] text-[var(--color-warm-white)]">
+      
+      {/* ── Immersive Carousel Space ── */}
+      <div className="relative h-[80vh] md:h-[90vh] overflow-hidden flex flex-col justify-end">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeIdx}
+            key={activeSpace}
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url('${villaImages[activeIdx].src}')` }}
+            style={{ backgroundImage: `url('${spacePhotos[activeSpace].src}')` }}
           />
         </AnimatePresence>
 
-        {/* Dark gradient overlay */}
-        <div className="absolute inset-0" style={{
-          background: 'linear-gradient(0deg, rgba(22,22,22,1) 0%, rgba(22,22,22,0.3) 50%, rgba(22,22,22,0.5) 100%)',
-        }} />
+        {/* Ambient Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-charcoal)] via-black/30 to-black/50" />
 
-        {/* Caption & Nav */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-10">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
-            <div>
-              <p className="eyebrow mb-4">The Spaces</p>
+        {/* Info panel */}
+        <div className="relative z-10 p-8 md:p-16 lg:p-24 max-w-7xl mx-auto w-full">
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+            <div className="max-w-xl">
+              <p className="eyebrow mb-4 text-[var(--color-gold)]">The Spaces</p>
               <AnimatePresence mode="wait">
-                <motion.h2
-                  key={activeIdx}
+                <motion.div
+                  key={activeSpace}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.5 }}
-                  className="heading-luxury-light"
-                  style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}
+                  transition={{ duration: 0.6 }}
                 >
-                  {villaImages[activeIdx].caption}
-                </motion.h2>
+                  <h3 className="heading-luxury-light text-3xl md:text-5xl mb-4 font-light">
+                    {spacePhotos[activeSpace].title}
+                  </h3>
+                  <p className="text-white/60 text-sm md:text-base leading-relaxed font-light" style={{ fontFamily: 'var(--font-body)' }}>
+                    {spacePhotos[activeSpace].desc}
+                  </p>
+                </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Thumbnail strip */}
-            <div className="flex gap-3">
-              {villaImages.map((img, i) => (
+            {/* Selector Buttons */}
+            <div className="flex flex-wrap gap-2 md:gap-3">
+              {spacePhotos.map((photo, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveIdx(i)}
-                  className={`w-16 h-16 md:w-20 md:h-20 overflow-hidden transition-all duration-500 ${
-                    activeIdx === i
-                      ? 'ring-1 ring-[var(--color-champagne)] opacity-100'
-                      : 'opacity-40 hover:opacity-70'
+                  onClick={() => setActiveSpace(i)}
+                  className={`px-4 py-2.5 text-[0.6rem] tracking-[0.25em] uppercase border transition-all duration-500 rounded-full font-medium ${
+                    activeSpace === i
+                      ? 'border-[var(--color-gold)] text-[var(--color-gold)] bg-[var(--color-gold-muted)]'
+                      : 'border-white/10 text-white/55 hover:border-white/30 hover:text-white'
                   }`}
+                  style={{ fontFamily: 'var(--font-body)' }}
                 >
-                  <img src={img.src} alt="" className="w-full h-full object-cover" />
+                  {photo.title.split(' ')[1] || photo.title}
                 </button>
               ))}
             </div>
@@ -73,138 +83,165 @@ export default function VillaExperience() {
         </div>
       </div>
 
-      {/* Details Section — dark background */}
+      {/* ── Pricing & Rates (Spacious & Clean Layout) ── */}
       <div className="section-luxury">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-
-            {/* Left: Villa Details */}
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span
-                  className="text-[0.6rem] tracking-[0.3em] uppercase text-emerald-400"
-                  style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
-                >
-                  Available for Bookings
-                </span>
-              </div>
-
-              <h3
-                className="heading-luxury-light mb-3"
-                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)' }}
-              >
-                SaGa Montana
+            
+            {/* Spec list */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <p className="eyebrow mb-4">Timeless Tariff</p>
+              <h3 className="heading-luxury-light text-3xl md:text-4xl mb-6 font-light">
+                Rates & Policies
               </h3>
-
-              <p
-                className="text-[0.7rem] tracking-[0.15em] text-[var(--color-ash)] mb-10"
-                style={{ fontFamily: 'var(--font-body)' }}
-              >
-                Yash Villas, Dahivali · Near Ekvira Temple · Karla, Lonavala
+              <p className="text-white/50 text-sm font-light leading-relaxed mb-10" style={{ fontFamily: 'var(--font-body)' }}>
+                Rent the entire estate. Prices include absolute private access to the 2BHK villa, pool access, curated kitchen facilities, and round-the-clock backup services.
               </p>
 
-              {/* Minimal spec list */}
-              <div className="flex flex-col gap-6 mb-10">
+              <div className="flex flex-col gap-6">
                 {[
-                  ['Configuration', '2 BHK Independent Villa'],
-                  ['Occupancy', '5–8 Guests'],
-                  ['Interiors', 'Designer Curated'],
-                  ['Check-in', '12:00 PM'],
-                  ['Check-out', '11:00 AM'],
+                  ['Villa Configuration', '2 BHK Luxury Private Villa'],
+                  ['Occupancy Guidelines', '5 to 8 Guests comfortably'],
+                  ['Ideal getaway for', 'Families, couples, small retreats'],
+                  ['Location details', 'Dahivali, Karla near Ekvira temple'],
                 ].map(([label, value], i) => (
-                  <div key={i} className="flex justify-between items-baseline border-b border-white/5 pb-4">
-                    <span className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                  <div key={i} className="flex flex-col pb-4 border-b border-white/5">
+                    <span className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-gold)] mb-1" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                       {label}
                     </span>
-                    <span className="text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                    <span className="text-sm font-light text-white/80" style={{ fontFamily: 'var(--font-body)' }}>
                       {value}
                     </span>
                   </div>
                 ))}
               </div>
-
-              {/* House Rules — minimal */}
-              <div>
-                <p className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-ash-light)] mb-4" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
-                  House Rules
-                </p>
-                <div className="grid grid-cols-2 gap-3 text-[0.7rem] text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                  <span>· No Pets Allowed</span>
-                  <span>· No Illegal Activities</span>
-                  <span>· Respect the Property</span>
-                  <span>· Maintain Cleanliness</span>
-                </div>
-              </div>
             </div>
 
-            {/* Right: Elegant Pricing Table */}
-            <div className="lg:col-span-7 lg:pl-16">
-              <p className="eyebrow mb-8">Tariff</p>
-
-              {/* Pricing Table */}
-              <div className="border border-white/8">
-                {/* Header */}
-                <div className="flex border-b border-white/8 px-8 py-5" style={{ background: 'rgba(201,167,74,0.05)' }}>
-                  <span className="flex-1 text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-                    Period
+            {/* Pricing list */}
+            <div className="lg:col-span-7 lg:pl-12">
+              <div className="border border-white/8 rounded-[28px] overflow-hidden bg-white/3">
+                {/* Table Header */}
+                <div className="flex justify-between items-center px-8 py-6 border-b border-white/8 bg-white/5">
+                  <span className="text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-gold)] font-semibold" style={{ fontFamily: 'var(--font-body)' }}>
+                    DAY OF WEEK
                   </span>
-                  <span className="w-32 text-right text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-                    Rack Rate
-                  </span>
-                  <span className="w-40 text-right text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
-                    Nightly Rate
+                  <span className="text-[0.65rem] tracking-[0.3em] uppercase text-[var(--color-gold)] font-semibold text-right" style={{ fontFamily: 'var(--font-body)' }}>
+                    NIGHTLY RATE
                   </span>
                 </div>
 
-                {/* Row 1 */}
-                <div className="flex items-baseline border-b border-white/5 px-8 py-6">
-                  <span className="flex-1 text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
-                    Sunday – Friday
-                  </span>
-                  <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                    ₹10,000
-                  </span>
-                  <span className="w-40 text-right text-xl text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
-                    ₹8,000
-                  </span>
+                {/* Sun-Fri Row */}
+                <div className="flex justify-between items-center px-8 py-8 border-b border-white/5 hover:bg-white/1 transition-all duration-300">
+                  <div>
+                    <h4 className="text-lg font-light mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                      Sunday – Friday
+                    </h4>
+                    <p className="text-[0.65rem] tracking-[0.1em] text-white/40 uppercase" style={{ fontFamily: 'var(--font-body)' }}>
+                      Weekday Escape Rate
+                    </p>
+                  </div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-xs text-white/30 line-through" style={{ fontFamily: 'var(--font-body)' }}>₹10,000</span>
+                    <span className="text-2xl text-[var(--color-gold)] font-light" style={{ fontFamily: 'var(--font-heading)' }}>₹8,000</span>
+                  </div>
                 </div>
 
-                {/* Row 2 */}
-                <div className="flex items-baseline border-b border-white/5 px-8 py-6">
-                  <span className="flex-1 text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
-                    Saturday
-                  </span>
-                  <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                    ₹15,000
-                  </span>
-                  <span className="w-40 text-right text-xl text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
-                    ₹12,000
-                  </span>
+                {/* Sat Row */}
+                <div className="flex justify-between items-center px-8 py-8 border-b border-white/5 hover:bg-white/1 transition-all duration-300">
+                  <div>
+                    <h4 className="text-lg font-light mb-1" style={{ fontFamily: 'var(--font-heading)' }}>
+                      Saturday
+                    </h4>
+                    <p className="text-[0.65rem] tracking-[0.1em] text-white/40 uppercase" style={{ fontFamily: 'var(--font-body)' }}>
+                      Weekend Premium Rate
+                    </p>
+                  </div>
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-xs text-white/30 line-through" style={{ fontFamily: 'var(--font-body)' }}>₹15,000</span>
+                    <span className="text-2xl text-[var(--color-gold)] font-light" style={{ fontFamily: 'var(--font-heading)' }}>₹12,000</span>
+                  </div>
                 </div>
 
-                {/* Footer note */}
-                <div className="px-8 py-4" style={{ background: 'rgba(201,167,74,0.03)' }}>
-                  <span className="text-[0.6rem] tracking-[0.15em] text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)' }}>
-                    20% standard discount applied · Group discounts available for 6+ guests
-                  </span>
+                {/* Bottom discount policy info */}
+                <div className="px-8 py-6 bg-white/2">
+                  <p className="text-xs text-white/50 leading-relaxed font-light" style={{ fontFamily: 'var(--font-body)' }}>
+                    * We offer up to 20% discount depending on booking size (automatically applied during reservation details). Extra discounts available for stays longer than 3 nights.
+                  </p>
                 </div>
               </div>
-
-              {/* CTA */}
-              <motion.a
-                href="#booking"
-                whileHover={{ scale: 1.01 }}
-                className="mt-10 block w-full text-center py-5 text-[0.65rem] tracking-[0.35em] uppercase bg-[var(--color-burgundy)] hover:bg-[var(--color-burgundy-dark)] text-[var(--color-warm-white)] transition-colors duration-500"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}
-              >
-                Reserve Your Stay
-              </motion.a>
             </div>
 
           </div>
         </div>
       </div>
+
+      {/* ── Timeline & Logistics (Vertical Editorial) ── */}
+      <div className="section-luxury pt-0">
+        <div className="max-w-7xl mx-auto">
+          <div className="gold-divider-wide mb-16" />
+          
+          <div className="text-center mb-16">
+            <p className="eyebrow mb-4">Stay Timeline</p>
+            <h3 className="heading-luxury-light text-3xl md:text-4xl font-light">
+              Logistics & Hours
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { time: '12:00 PM', title: 'Grand Check-in', desc: 'Step into a clean, air-conditioned villa. Keys are handed over alongside a quick walk-through of the amenities.' },
+              { time: '04:00 PM', title: 'High Tea & Housekeeping', desc: 'Our housekeeping staff is available to spruce up the rooms, change linens, or assist in setting up cooking amenities.' },
+              { time: '11:00 AM', title: 'Check-out & Farewell', desc: 'A warm check-out process. Property verification occurs, leaving you with sweet memories of the valley.' },
+            ].map((step, idx) => (
+              <div key={idx} className="relative p-8 border border-white/5 bg-white/3 rounded-[28px] flex flex-col hover:border-[var(--color-gold)] transition-colors duration-500">
+                <span className="text-3xl text-[var(--color-gold)] font-light mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {step.time}
+                </span>
+                <h4 className="text-lg font-normal mb-3" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {step.title}
+                </h4>
+                <p className="text-white/50 text-xs leading-relaxed font-light" style={{ fontFamily: 'var(--font-body)' }}>
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── House Rules Section (Luxury Cards) ── */}
+      <div className="section-luxury pt-0">
+        <div className="max-w-7xl mx-auto">
+          <div className="gold-divider-wide mb-16" />
+
+          <div className="mb-16">
+            <p className="eyebrow mb-4">Rules & Etiquette</p>
+            <h3 className="heading-luxury-light text-3xl md:text-4xl font-light">
+              Villa Guidelines
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {houseRules.map((rule, idx) => (
+              <div
+                key={idx}
+                className="p-8 border border-white/5 bg-white/2 rounded-[28px] transition-all duration-500 hover:-translate-y-2 hover:border-[var(--color-gold)]/30"
+              >
+                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--color-gold-muted)] text-[var(--color-gold)] mb-6 text-xs font-semibold" style={{ fontFamily: 'var(--font-body)' }}>
+                  0{idx + 1}
+                </div>
+                <h4 className="text-lg font-normal mb-3 text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                  {rule.title}
+                </h4>
+                <p className="text-white/45 text-xs leading-relaxed font-light" style={{ fontFamily: 'var(--font-body)' }}>
+                  {rule.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 }

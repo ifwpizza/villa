@@ -1,128 +1,159 @@
 import { motion } from 'framer-motion';
 
-const immersiveAmenities = [
+const featureAmenities = [
   {
     image: '/images/pool-daytime.jpeg',
-    title: 'Shared Swimming Pool',
-    subtitle: 'Refresh in the hillside infinity-edge pool with panoramic mountain vistas.',
-  },
-  {
-    image: '/images/lawn-pool-mountain.jpeg',
-    title: 'Manicured Lawn & Garden',
-    subtitle: 'Expansive green spaces for yoga, family games, or sunset cocktails.',
+    tag: 'HILLSIDE OASIS',
+    title: 'Shared Infinity-Edge Pool',
+    desc: 'Bask in clean, turquoise waters looking directly onto the valleys of Karla. The outdoor pool deck is styled with custom loungers, offering the perfect spot for morning swims or golden hour reflections.',
+    details: ['Panoramic Valley View', 'Regular Maintenance', 'Poolside Deck Chairs']
   },
   {
     image: '/images/balcony-sitout.jpeg',
-    title: 'Private Balcony Retreat',
-    subtitle: 'Your personal outdoor lounge with artificial turf and mountain-facing seating.',
+    tag: 'PRIVATE RETREAT',
+    title: 'Private Turf Balcony Deck',
+    desc: 'An outdoor living space featuring premium artificial turf and comfortable outdoor seating. Steps away from the master bedroom, it offers a tranquil corner to enjoy fresh mountain breezes over your morning espresso.',
+    details: ['Premium Seating', 'All-Weather Flooring', 'Direct Bedroom Access']
   },
   {
     image: '/images/kitchen-full.jpeg',
-    title: 'Fully Equipped Kitchen',
-    subtitle: 'Premium appliances, utensils, gas, and RO purifier — ready for home cooking.',
+    tag: 'EPICUREAN DELIGHT',
+    title: 'Fully Appointed Chef’s Kitchen',
+    desc: 'Equipped to meet all culinary desires. Features a premium double-door refrigerator, modern microwave oven, direct gas stove, complete set of cooking utensils, and a high-grade RO water purification system.',
+    details: ['Complete Utensils & Gas', 'RO Water Purifier', 'Double-Door Refrigerator']
   },
+  {
+    image: '/images/lawn-pool-mountain.jpeg',
+    tag: 'OUTDOOR GRANDEUR',
+    title: 'Expansive Gardens & Lawns',
+    desc: 'Surrounding the villa is a manicured lawns ideal for casual yoga sessions, children playing, or hosting family BBQ dinners under a canopy of stars.',
+    details: ['Barbecue grill setup', 'Night ambient lighting', 'Secure kids area']
+  }
 ];
 
-const minimalAmenities = [
-  'Air Conditioning',
-  'High-Speed WiFi',
-  'BBQ Setup',
-  'Premium Sound System',
-  'Double-Door Refrigerator',
-  'Microwave Oven',
-  'Water Purifier (RO)',
-  'Gas Stove & Free Gas',
-  'Complete Kitchen Utensils',
-  'Power Backup',
-  '24/7 Water Supply',
-  'Free Secure Parking',
+const generalAmenities = [
+  'High-Speed WiFi', 'Bespoke Air Conditioning', 'Robust Power Backup', 'Secure Free Parking',
+  'Flat-Screen TVs', 'Premium Soundbar', '24/7 Water Supply', 'Fine Bed Linens',
+  'Bathroom Toiletries', 'Iron & Board', 'Wardrobe Storage', 'First Aid Kit'
 ];
 
 export default function Amenities() {
   return (
-    <section id="amenities" className="bg-[var(--color-noir)]">
-      {/* Header */}
+    <section id="amenities" className="bg-[var(--color-charcoal)] text-[var(--color-warm-white)]">
+      
+      {/* Editorial Header */}
       <div className="section-luxury pb-0">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-24">
           <div>
-            <p className="eyebrow mb-5">Curated Amenities</p>
-            <h2 className="heading-luxury-light" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
-              Everything You Need,
-              <br />
-              <em style={{ fontWeight: 300 }}>Nothing You Don't</em>
+            <p className="eyebrow mb-4">Curated Comfort</p>
+            <h2 className="heading-luxury-light text-3xl md:text-5xl font-light">
+              Bespoke Amenities
             </h2>
           </div>
-          <p className="text-sm max-w-md text-[var(--color-ash)] leading-relaxed" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-            From resort-grade pool access to a fully stocked kitchen,
-            every amenity is thoughtfully integrated into the villa experience.
+          <p className="text-sm max-w-md text-white/55 font-light leading-relaxed" style={{ fontFamily: 'var(--font-body)' }}>
+            Every touchpoint is designed with a boutique resort aesthetic in mind, balancing private luxury villa comforts with state-of-the-art facilities.
           </p>
         </div>
       </div>
 
-      {/* Large Photography Grid with Hover Reveal */}
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {immersiveAmenities.map((amenity, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: i * 0.1 }}
-            className="relative h-[50vh] md:h-[70vh] overflow-hidden group cursor-default image-reveal"
-          >
-            <img
-              src={amenity.image}
-              alt={amenity.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
+      {/* Alternating Feature Blocks (Apple-Style Editorial Layout) */}
+      <div className="flex flex-col">
+        {featureAmenities.map((feature, i) => {
+          const isEven = i % 2 === 0;
+          return (
+            <div
+              key={i}
+              className="py-16 md:py-24 border-b border-white/5"
+            >
+              <div className="max-w-7xl mx-auto px-6 lg:px-12">
+                <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center`}>
+                  
+                  {/* Visual container */}
+                  <motion.div
+                    initial={{ opacity: 0, x: isEven ? -40 : 40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: 'easeOut' }}
+                    className={`lg:col-span-6 overflow-hidden rounded-[28px] shadow-2xl relative image-reveal ${
+                      !isEven ? 'lg:order-2' : ''
+                    }`}
+                  >
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="w-full h-[320px] md:h-[480px] object-cover"
+                      loading="lazy"
+                    />
+                  </motion.div>
 
-            {/* Default: subtle gradient with title */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-700 group-hover:from-black/90 group-hover:via-black/50" />
+                  {/* Copy container */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, delay: 0.2 }}
+                    className={`lg:col-span-6 flex flex-col justify-center ${
+                      !isEven ? 'lg:order-1' : ''
+                    }`}
+                  >
+                    <span className="text-[0.65rem] tracking-[0.35em] uppercase text-[var(--color-gold)] font-semibold mb-4" style={{ fontFamily: 'var(--font-body)' }}>
+                      {feature.tag}
+                    </span>
+                    <h3 className="heading-luxury-light text-2xl md:text-4.5xl mb-6 font-light">
+                      {feature.title}
+                    </h3>
+                    <p className="text-white/60 text-sm md:text-base leading-relaxed font-light mb-8" style={{ fontFamily: 'var(--font-body)' }}>
+                      {feature.desc}
+                    </p>
 
-            {/* Content */}
-            <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-              <div className="gold-divider mb-4 transition-all duration-700 group-hover:w-16" style={{ width: '2rem' }} />
-              <h3
-                className="text-white text-xl md:text-2xl mb-2 transition-all duration-500"
-                style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}
-              >
-                {amenity.title}
-              </h3>
-              <p
-                className="text-white/0 group-hover:text-white/70 transition-all duration-700 text-sm max-w-sm transform translate-y-4 group-hover:translate-y-0"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
-              >
-                {amenity.subtitle}
-              </p>
+                    {/* Features checklist */}
+                    <div className="flex flex-col gap-3">
+                      {feature.details.map((detail, idx) => (
+                        <div key={idx} className="flex items-center gap-3">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-gold)]" />
+                          <span className="text-xs text-white/75 font-light" style={{ fontFamily: 'var(--font-body)' }}>{detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                </div>
+              </div>
             </div>
-          </motion.div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Minimal Text List */}
+      {/* General Minimal Dot List */}
       <div className="section-luxury">
         <div className="max-w-7xl mx-auto">
-          <div className="gold-divider-wide mb-12" />
-          <p className="eyebrow mb-8">Also Included</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 gap-y-5">
-            {minimalAmenities.map((name, i) => (
-              <motion.span
-                key={i}
+          <div className="mb-12">
+            <p className="eyebrow mb-4">Included Conveniences</p>
+            <h3 className="heading-luxury-light text-2xl md:text-3.5xl font-light">
+              Additional Luxuries
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+            {generalAmenities.map((amenity, idx) => (
+              <motion.div
+                key={idx}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.04 }}
-                className="text-[var(--color-ash)] text-sm flex items-center gap-3"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
+                transition={{ duration: 0.6, delay: (idx % 4) * 0.05 }}
+                className="flex items-center gap-4 py-4 px-6 border border-white/5 bg-white/2 rounded-full"
               >
-                <span className="w-1 h-1 bg-[var(--color-champagne)] rounded-full flex-shrink-0" />
-                {name}
-              </motion.span>
+                <div className="w-2 h-2 rounded-full bg-[var(--color-gold)] flex-shrink-0" />
+                <span className="text-white/70 text-xs md:text-sm font-light" style={{ fontFamily: 'var(--font-body)' }}>
+                  {amenity}
+                </span>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
+
     </section>
   );
 }

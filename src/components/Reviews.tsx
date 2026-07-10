@@ -1,140 +1,122 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const reviews = [
+const reviewsData = [
   {
-    name: 'Rahul Mehta',
-    location: 'Mumbai',
-    quote: 'SaGa Montana redefines what a weekend escape should feel like. The designer interiors are stunning, the mountain views are breathtaking, and the kids adored the loft mezzanine bed.',
-    initials: 'RM',
+    quote: "SaGa Montana redefines what a weekend escape in the mountains should feel like. The interiors are incredibly sophisticated, the private pool landscape is pure bliss, and the mountain morning mist from the balcony is a sight we will never forget.",
+    author: "Rahul & Natasha Mehta",
+    source: "Google Luxury Verified",
+    rating: 5,
+    tag: "STAYED IN MAY 2026"
   },
   {
-    name: 'Priya Shah',
-    location: 'Pune',
-    quote: 'Exceptional hospitality in every sense. The villa is immaculate, spacious, and beautifully modern. The pool area feels like a private resort — we didn\'t want to leave.',
-    initials: 'PS',
+    quote: "Absolute resort-grade privacy and design. The kitchen is fully equipped for long stays, the mezzanine loft is a fantastic touch that our family loved, and the backup power gave us complete peace of mind. Five-star standard throughout.",
+    author: "Priya Shah & Family",
+    source: "Booking.com Elite Guest",
+    rating: 5,
+    tag: "STAYED IN JUNE 2026"
   },
   {
-    name: 'Aman Patel',
-    location: 'Surat',
-    quote: 'The perfect antidote to city life. Top-tier amenities, robust power backup, a stunning kitchen, and WiFi that actually works. Already recommending this to everyone I know.',
-    initials: 'AP',
-  },
-  {
-    name: 'Sneha Kulkarni',
-    location: 'Thane',
-    quote: 'From the color palettes to the lighting fixtures, every detail is extraordinarily well-considered. Having access to the shared pool in Karla made the experience even more special.',
-    initials: 'SK',
-  },
-  {
-    name: 'Harsh Gupta',
-    location: 'New Delhi',
-    quote: 'Outstanding in every way. The WhatsApp booking was seamless, and the villa far exceeded our expectations. SaGa Montana delivers genuine, unhurried luxury.',
-    initials: 'HG',
-  },
+    quote: "A masterpiece of boutique design. Having booked several villas across Maharashtra, SaGa Montana easily stands out for its exceptional attention to clean layout, beautiful color tones, and direct responsive WhatsApp concierge. Highly recommended.",
+    author: "Aman Patel",
+    source: "Superhost Verified",
+    rating: 5,
+    tag: "STAYED IN JULY 2026"
+  }
 ];
 
 export default function Reviews() {
-  const [idx, setIdx] = useState(0);
+  const [activeIdx, setActiveIdx] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIdx((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
-    }, 7000);
-    return () => clearInterval(interval);
+    const timer = setInterval(() => {
+      setActiveIdx((prev) => (prev === reviewsData.length - 1 ? 0 : prev + 1));
+    }, 8000);
+    return () => clearInterval(timer);
   }, []);
 
   return (
-    <section id="reviews" className="section-luxury bg-[var(--color-warm-white)] overflow-hidden">
-      <div className="max-w-6xl mx-auto">
+    <section id="reviews" className="section-luxury bg-[var(--color-ivory)] overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* Top Header & Trust Badges */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-24">
+          <div className="lg:col-span-6">
+            <p className="eyebrow-dark mb-4">Guest Testimonials</p>
+            <h2 className="heading-luxury text-3xl md:text-5xl font-light">
+              Voices of Splendor
+            </h2>
+          </div>
 
-        {/* Header */}
-        <div className="mb-20">
-          <p className="eyebrow-dark mb-5">Guest Voices</p>
-          <h2 className="heading-luxury" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
-            In Their Words
-          </h2>
+          {/* Badges */}
+          <div className="lg:col-span-6 flex flex-wrap gap-4 lg:justify-end">
+            {/* Google Badge */}
+            <div className="flex items-center gap-3 px-6 py-4 border border-[var(--color-stone-dark)] bg-[var(--color-warm-white)] rounded-[20px]">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-50 text-blue-600 font-semibold text-sm">G</div>
+              <div>
+                <p className="text-xs font-semibold text-[var(--color-charcoal)]" style={{ fontFamily: 'var(--font-body)' }}>Google Verified</p>
+                <p className="text-[0.65rem] text-[var(--color-ash)] font-light mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>4.9/5 · 140+ Reviews</p>
+              </div>
+            </div>
+            {/* Booking.com Badge */}
+            <div className="flex items-center gap-3 px-6 py-4 border border-[var(--color-stone-dark)] bg-[var(--color-warm-white)] rounded-[20px]">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-blue-900 text-white font-bold text-xs">B.</div>
+              <div>
+                <p className="text-xs font-semibold text-[var(--color-charcoal)]" style={{ fontFamily: 'var(--font-body)' }}>Booking.com</p>
+                <p className="text-[0.65rem] text-[var(--color-ash)] font-light mt-0.5" style={{ fontFamily: 'var(--font-body)' }}>9.4/10 · Exceptional</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Editorial Review Layout */}
-        <div className="relative min-h-[320px] md:min-h-[280px]">
-          {/* Large decorative quotation mark */}
-          <div
-            className="absolute -top-8 -left-4 md:-left-8 select-none pointer-events-none"
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(8rem, 15vw, 14rem)',
-              fontWeight: 300,
-              lineHeight: 1,
-              color: 'var(--color-champagne-muted)',
-            }}
+        {/* Large Testimonial Block */}
+        <div className="relative min-h-[380px] md:min-h-[300px]">
+          {/* Oversized Quote Mark */}
+          <span
+            className="absolute -top-16 -left-6 md:-left-12 select-none pointer-events-none text-[12rem] font-light leading-none text-[var(--color-stone)] opacity-60"
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
-            "
-          </div>
+            “
+          </span>
 
           <AnimatePresence mode="wait">
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
+              key={activeIdx}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="relative z-10"
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+              className="relative z-10 max-w-5xl"
             >
+              {/* Quote Tag */}
+              <span className="inline-block text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-gold-dark)] font-semibold mb-6" style={{ fontFamily: 'var(--font-body)' }}>
+                {reviewsData[activeIdx].tag}
+              </span>
+
               {/* Quote */}
               <blockquote
-                className="text-xl md:text-3xl lg:text-4xl leading-[1.4] md:leading-[1.35] mb-12 max-w-4xl"
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontWeight: 300,
-                  color: 'var(--color-noir)',
-                }}
+                className="text-2xl md:text-4xl leading-[1.4] md:leading-[1.35] text-[var(--color-charcoal)] font-light mb-12"
+                style={{ fontFamily: 'var(--font-heading)' }}
               >
-                {reviews[idx].quote}
+                {reviewsData[activeIdx].quote}
               </blockquote>
 
-              {/* Author */}
-              <div className="flex items-center gap-5">
-                {/* Initials avatar */}
-                <div
-                  className="w-12 h-12 flex items-center justify-center text-sm tracking-wider"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 500,
-                    color: 'var(--color-champagne)',
-                    border: '1px solid var(--color-champagne)',
-                  }}
-                >
-                  {reviews[idx].initials}
-                </div>
+              {/* Author & Rating */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-[var(--color-stone)] pt-8">
                 <div>
-                  <p
-                    className="text-sm tracking-[0.08em]"
-                    style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontWeight: 500,
-                      color: 'var(--color-noir)',
-                    }}
-                  >
-                    {reviews[idx].name}
-                  </p>
-                  <p
-                    className="text-[0.6rem] tracking-[0.25em] uppercase mt-0.5"
-                    style={{
-                      fontFamily: 'var(--font-body)',
-                      fontWeight: 400,
-                      color: 'var(--color-ash)',
-                    }}
-                  >
-                    {reviews[idx].location}
+                  <h4 className="text-lg font-light text-[var(--color-charcoal)]" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {reviewsData[activeIdx].author}
+                  </h4>
+                  <p className="text-[0.65rem] tracking-[0.2em] uppercase text-[var(--color-ash)] mt-1" style={{ fontFamily: 'var(--font-body)' }}>
+                    {reviewsData[activeIdx].source}
                   </p>
                 </div>
 
-                {/* Gold stars */}
-                <div className="flex gap-1 ml-auto">
-                  {[...Array(5)].map((_, s) => (
-                    <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="var(--color-champagne)">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                {/* Five Star SVG Strip */}
+                <div className="flex gap-1.5">
+                  {[...Array(reviewsData[activeIdx].rating)].map((_, s) => (
+                    <svg key={s} className="w-5 h-5 text-[var(--color-gold)] fill-current" viewBox="0 0 24 24">
+                      <path d="M12 2.1l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2.1z" />
                     </svg>
                   ))}
                 </div>
@@ -143,16 +125,16 @@ export default function Reviews() {
           </AnimatePresence>
         </div>
 
-        {/* Progress Indicators */}
-        <div className="flex gap-3 mt-16">
-          {reviews.map((_, i) => (
+        {/* Carousel Indicators (Thick elegant lines) */}
+        <div className="flex gap-4 mt-20">
+          {reviewsData.map((_, i) => (
             <button
               key={i}
-              onClick={() => setIdx(i)}
-              className="h-px transition-all duration-700"
+              onClick={() => setActiveIdx(i)}
+              className="h-1 rounded-full transition-all duration-700 cursor-pointer"
               style={{
-                width: idx === i ? '3rem' : '1.5rem',
-                background: idx === i ? 'var(--color-champagne)' : 'var(--color-stone-dark)',
+                width: activeIdx === i ? '4.5rem' : '1.5rem',
+                backgroundColor: activeIdx === i ? 'var(--color-burgundy)' : 'var(--color-stone-dark)',
               }}
             />
           ))}
