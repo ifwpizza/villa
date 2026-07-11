@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
-const WHATSAPP_NUMBER = '+918591994866';
+const WHATSAPP_NUMBER = '918591994866';
 
 const getMockBookedDates = () => {
   const today = new Date();
@@ -84,11 +84,17 @@ export default function BookingSystem() {
 
   const fmt = (ds: string) => ds ? new Date(ds).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 
+  const buildWhatsAppUrl = (message: string) =>
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+
   const handleSubmit = () => {
     if (!checkIn || !checkOut || error) return;
     setLoading(true);
     const msg = `Hello,\n\nI'd like to reserve SaGa Montana.\n\nCheck-in: ${fmt(checkIn)}\nCheck-out: ${fmt(checkOut)}\nGuests: ${adults} Adults, ${children} Children\nNights: ${nights}\nTotal: ₹${finalPrice.toLocaleString('en-IN')}${discPct ? ` (${discPct}% discount applied)` : ''}\n\nPlease confirm availability and share payment details.\n\nThank you.`;
-    setTimeout(() => { setLoading(false); window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank'); }, 1000);
+    setTimeout(() => {
+      setLoading(false);
+      window.location.href = buildWhatsAppUrl(msg);
+    }, 1000);
   };
 
   const days = getDays(curYear, curMonth);
