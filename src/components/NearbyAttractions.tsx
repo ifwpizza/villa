@@ -1,106 +1,110 @@
 import { motion } from 'framer-motion';
 
-const localAttractions = [
+const attractions = [
   {
     name: 'Ekvira Temple & Karla Caves',
-    distance: '3.0 km away',
-    duration: '10 min drive',
-    desc: 'Explore ancient rock-cut Buddhist shrines dating back to the 2nd century BC, nestled alongside the historic Ekvira Devi temple complex.',
-    image: '/images/community-exterior.jpeg'
+    distance: '3.0 km',
+    time: '10 min drive',
+    description: 'Ancient rock-cut caves and the iconic Ekvira Devi temple.',
+    image: '/images/community-exterior.jpeg',
   },
   {
     name: 'Wet N Joy Water Park',
-    distance: '6.2 km away',
-    duration: '12 min drive',
-    desc: 'Perfect family day out. Host to India\'s largest wave pools, high-velocity slides, and modern amusement attractions.',
-    image: '/images/pool-daytime.jpeg'
+    distance: '6.2 km',
+    time: '12 min drive',
+    description: 'India\'s largest water park with thrilling slides and a wave pool.',
+    image: '/images/pool-daytime.jpeg',
   },
   {
     name: 'Scenic Mountain Trails',
-    distance: '2.0 km away',
-    duration: '5 min drive',
-    desc: 'Unmatched trekking routes and sunset viewpoints across Karla and Bhaja ranges, especially vibrant during the monsoon mist.',
-    image: '/images/balcony-mountain-view.jpeg'
+    distance: '2.0 km',
+    time: '5 min drive',
+    description: 'Tranquil walking trails and viewpoints across Karla and Bhaja hills.',
+    image: '/images/balcony-mountain-view.jpeg',
   },
   {
     name: 'Local Dining & Markets',
-    distance: '1.2 km away',
-    duration: '4 min drive',
-    desc: 'Enjoy authentic Maharashtrian dhabas, local organic farm produce, and the world-famous Lonavala chikki stores.',
-    image: '/images/garden-night-lighting.jpeg'
-  }
+    distance: '1.2 km',
+    time: '4 min drive',
+    description: 'Authentic Maharashtrian dhabas, cafes, and chikki shops.',
+    image: '/images/garden-night-lighting.jpeg',
+  },
 ];
 
 export default function NearbyAttractions() {
   return (
-    <section id="nearby" className="section-luxury bg-[var(--color-ivory)]">
+    <section id="nearby" className="section-luxury bg-[var(--color-parchment)]">
       <div className="max-w-7xl mx-auto">
-        
         {/* Header */}
-        <div className="mb-24">
-          <p className="eyebrow-dark mb-4">Surroundings</p>
-          <h2 className="heading-luxury text-3xl md:text-5xl font-light">
-            Nearby Attractions
+        <div className="mb-16">
+          <p className="eyebrow-dark mb-5">Surroundings</p>
+          <h2 className="heading-luxury" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
+            What's Nearby
           </h2>
         </div>
 
-        {/* Attractions Grid - Horizontal Editorial Cards */}
-        <div className="flex flex-col gap-10">
-          {localAttractions.map((attraction, idx) => (
+        {/* Horizontal Image Cards */}
+        <div className="flex flex-col gap-6">
+          {attractions.map((a, i) => (
             <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: idx * 0.08 }}
-              className="luxury-card group grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden cursor-default"
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="group grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden cursor-default"
+              style={{ border: '1px solid var(--color-stone)' }}
             >
-              
-              {/* Left Column: Visual container (4 cols) */}
-              <div className="md:col-span-4 h-[220px] md:h-[260px] overflow-hidden image-reveal relative">
+              {/* Image */}
+              <div className="md:col-span-4 h-[200px] md:h-[220px] overflow-hidden image-reveal relative">
                 <img
-                  src={attraction.image}
-                  alt={attraction.name}
+                  src={a.image}
+                  alt={a.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                
                 {/* Distance Badge */}
                 <div
-                  className="absolute top-5 left-5 px-4 py-2 text-[0.6rem] tracking-[0.2em] uppercase font-semibold text-[var(--color-gold)] bg-[var(--color-charcoal)]/85 backdrop-filter backdrop-blur-md rounded-full"
-                  style={{ fontFamily: 'var(--font-body)' }}
+                  className="absolute top-4 left-4 px-3 py-1.5 text-[0.55rem] tracking-[0.2em] uppercase"
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 600,
+                    background: 'rgba(22,22,22,0.85)',
+                    color: 'var(--color-champagne)',
+                    backdropFilter: 'blur(8px)',
+                  }}
                 >
-                  {attraction.distance}
+                  {a.distance}
                 </div>
               </div>
 
-              {/* Right Column: Copy container (8 cols) */}
-              <div className="md:col-span-8 p-8 md:p-12 flex flex-col justify-center bg-[var(--color-warm-white)] group-hover:bg-white transition-colors duration-500">
-                <div className="flex flex-wrap items-baseline justify-between gap-4 mb-4">
+              {/* Content */}
+              <div className="md:col-span-8 p-8 md:p-10 flex flex-col justify-center bg-[var(--color-warm-white)] group-hover:bg-white transition-colors duration-500">
+                <div className="flex items-center justify-between mb-4">
                   <h3
-                    className="text-xl md:text-2.5xl font-normal text-[var(--color-charcoal)]"
-                    style={{ fontFamily: 'var(--font-heading)' }}
+                    className="text-xl md:text-2xl"
+                    style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontWeight: 400,
+                      color: 'var(--color-noir)',
+                    }}
                   >
-                    {attraction.name}
+                    {a.name}
                   </h3>
-                  
-                  {/* Duration Badge */}
                   <span
-                    className="text-[0.6rem] tracking-[0.2em] uppercase text-[var(--color-gold-dark)] font-semibold"
-                    style={{ fontFamily: 'var(--font-body)' }}
+                    className="text-[0.55rem] tracking-[0.2em] uppercase text-[var(--color-ash)] hidden md:block"
+                    style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
                   >
-                    {attraction.duration}
+                    {a.time}
                   </span>
                 </div>
-                
                 <p
-                  className="text-sm text-[var(--color-ash)] leading-relaxed font-light"
-                  style={{ fontFamily: 'var(--font-body)' }}
+                  className="text-sm text-[var(--color-ash)] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
                 >
-                  {attraction.desc}
+                  {a.description}
                 </p>
               </div>
-
             </motion.div>
           ))}
         </div>

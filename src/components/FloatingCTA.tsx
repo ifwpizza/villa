@@ -42,12 +42,7 @@ export default function FloatingCTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
           href="#booking"
-          className="px-12 py-4 text-[0.65rem] tracking-[0.35em] uppercase text-[var(--color-champagne)] hover:bg-[var(--color-champagne)] hover:text-[var(--color-noir)] transition-all duration-700"
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontWeight: 500,
-            border: '1px solid rgba(201,167,74,0.4)',
-          }}
+          className="booking-cta px-12 py-4"
         >
           Reserve Your Stay
         </motion.a>
