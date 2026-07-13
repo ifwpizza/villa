@@ -35,7 +35,7 @@ const minimalAmenities = [
   'Complete Kitchen Utensils',
   'Power Backup',
   '24/7 Water Supply',
-  'Free Secure Parking',
+  'Have Parking Area',
 ];
 
 export default function Amenities() {

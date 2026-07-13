@@ -24,9 +24,7 @@ export default function About() {
             className="heading-luxury"
             style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
           >
-            A sanctuary of stillness,
-            <br />
-            <em style={{ fontWeight: 300, color: 'var(--color-champagne)' }}>designed for the discerning few.</em>
+            A sanctuary of stillness.
           </motion.h2>
         </div>
 
@@ -41,8 +39,8 @@ export default function About() {
             className="lg:col-span-7 overflow-hidden image-reveal"
           >
             <img
-              src="/images/living-room-day.jpeg"
-              alt="SaGa Montana Premium Living Room"
+              src="/images/mountain-panorama.jpeg"
+              alt="Misty mountain panorama near SaGa Montana"
               className="w-full h-[50vh] lg:h-[70vh] object-cover"
               loading="lazy"
             />
@@ -64,9 +62,9 @@ export default function About() {
             >
               Tucked away in the serene hills of Karla, near the ancient
               Ekvira Temple, SaGa Montana offers the ultimate combination
-              of designer interiors and natural beauty. Every detail —
+              of designer interiors and natural beauty. Every detail,
               from the curated furnishings to the panoramic mountain
-              views — has been crafted for those who appreciate the art
+              views, has been crafted for those who appreciate the art
               of living well.
             </p>
 
@@ -75,8 +73,10 @@ export default function About() {
               style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               This boutique villa serves as a perfect escape for families
-              and friends seeking luxury, space, and a breath of fresh
-              mountain air — just hours from Mumbai and Pune.
+              and friends seeking space and a breath of fresh mountain
+              air, just hours from Mumbai and Pune. Pune is easily
+              accessible and well connected by road, railway, and public
+              transport.
             </p>
 
             {/* Minimal Stats */}

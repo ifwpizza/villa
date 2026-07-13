@@ -49,7 +49,7 @@ export default function Hero() {
             className="heading-luxury-light mb-12"
             style={{ fontSize: 'clamp(2.8rem, 8vw, 7rem)' }}
           >
-            Experience <em style={{ fontWeight: 300 }}>Luxury</em>
+            Experience <em style={{ fontWeight: 300 }}>Nature</em>
             <br />
             Like Never Before
           </motion.h1>

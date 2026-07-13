@@ -79,7 +79,7 @@ function App() {
                 textTransform: 'uppercase',
                 color: '#999590',
               }}>
-                Luxury Awaits
+                Nature Awaits
               </p>
             </motion.div>
           </motion.div>

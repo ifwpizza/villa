@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const villaImages = [
-  { src: '/images/second-bedroom.jpeg', caption: 'Master Suite' },
+  { src: '/images/second-bedroom.jpeg', caption: 'Second Bedroom' },
   { src: '/images/mezzanine-bedroom.jpeg', caption: 'Mezzanine Loft' },
   { src: '/images/kitchen-full.jpeg', caption: 'Designer Kitchen' },
   { src: '/images/entrance-hallway.jpeg', caption: 'Grand Entrance' },
@@ -107,9 +107,8 @@ export default function VillaExperience() {
               {/* Minimal spec list */}
               <div className="flex flex-col gap-6 mb-10">
                 {[
-                  ['Configuration', '2 BHK Independent Villa'],
-                  ['Occupancy', '5–8 Guests'],
-                  ['Interiors', 'Designer Curated'],
+                  ['Configuration', '2 BHK Villa'],
+                  ['Occupancy', 'Up to 8 Guests'],
                   ['Check-in', '12:00 PM'],
                   ['Check-out', '11:00 AM'],
                 ].map(([label, value], i) => (

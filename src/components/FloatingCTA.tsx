@@ -31,7 +31,7 @@ export default function FloatingCTA() {
           className="heading-luxury-light mb-10"
           style={{ fontSize: 'clamp(2rem, 5vw, 4rem)' }}
         >
-          Your Luxury Escape
+          Your Nature Escape
           <br />
           <em style={{ fontWeight: 300 }}>Awaits</em>
         </motion.h2>

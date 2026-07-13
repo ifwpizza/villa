@@ -45,7 +45,7 @@ export default function Contact() {
                   Availability
                 </h4>
                 <p className="text-sm text-[var(--color-noir-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                  Open 24/7 for booking assistance
+                  BOOK NOW
                 </p>
               </div>
             </div>
