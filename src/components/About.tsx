@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   return (
-    <section id="villa" className="section-luxury bg-[var(--color-parchment)] overflow-hidden">
+    <section id="villa" className="section-luxury bg-parchment-gold overflow-hidden">
       <div className="max-w-7xl mx-auto">
 
         {/* Top: Eyebrow + Heading — editorial style */}
@@ -54,7 +54,7 @@ export default function About() {
             transition={{ duration: 1, delay: 0.2 }}
             className="lg:col-span-5 flex flex-col justify-center lg:pl-12 lg:pr-4 py-8 lg:py-16"
           >
-            <div className="gold-divider mb-8" />
+            <div className="gold-divider mb-8" style={{ boxShadow: '0 0 10px rgba(212,175,55,0.4)', width: '4rem' }} />
 
             <p
               className="text-sm md:text-base leading-[1.9] text-[var(--color-ash)] mb-8"
@@ -88,11 +88,10 @@ export default function About() {
               ].map((stat, i) => (
                 <div key={i} className="flex flex-col">
                   <span
-                    className="text-3xl md:text-4xl mb-1"
+                    className="text-3xl md:text-4xl mb-1 gold-shimmer-text"
                     style={{
                       fontFamily: 'var(--font-heading)',
                       fontWeight: 300,
-                      color: 'var(--color-champagne)',
                     }}
                   >
                     {stat.num}

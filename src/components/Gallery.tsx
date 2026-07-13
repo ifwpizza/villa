@@ -33,7 +33,7 @@ export default function Gallery() {
   const showNext = () => setLightboxIdx(prev => (prev === galleryItems.length - 1 ? 0 : prev! + 1));
 
   return (
-    <section id="gallery" className="section-luxury bg-[var(--color-parchment)]">
+    <section id="gallery" className="section-luxury bg-parchment-gold">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">

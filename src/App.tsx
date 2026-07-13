@@ -68,7 +68,7 @@ function App() {
               className="flex flex-col items-center gap-6"
             >
               <div className="loading-logo">
-                <span style={{ color: '#C9A74A' }}>SaGa</span>{' '}
+                <span className="gold-shimmer-text">SaGa</span>{' '}
                 <span style={{ fontWeight: 300 }}>Montana</span>
               </div>
               <div className="loading-bar" />

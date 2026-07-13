@@ -9,7 +9,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-[var(--color-noir)] text-[var(--color-warm-white)] pt-20 pb-10">
+    <footer className="text-[var(--color-warm-white)] pt-20 pb-10 section-royal-dark">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         
         {/* Instagram Gallery Strip */}
@@ -40,11 +40,10 @@ export default function Footer() {
         <div className="flex flex-col items-center text-center mb-16">
           <a href="#home" className="inline-block hover:opacity-80 transition-opacity">
             <span
-              className="text-[3rem] md:text-[5rem] tracking-[0.05em]"
+              className="text-[3rem] md:text-[5rem] tracking-[0.05em] gold-shimmer-text"
               style={{
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 300,
-                color: 'var(--color-champagne)',
                 lineHeight: 1,
               }}
             >
@@ -101,7 +100,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 border-t" style={{ borderColor: 'rgba(201,167,74,0.15)' }}>
+        <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderTop: '1px solid', borderImage: 'linear-gradient(90deg, transparent, rgba(201,167,74,0.4), rgba(212,175,55,0.6), rgba(201,167,74,0.4), transparent) 1' }}>
           <p className="text-[0.6rem] tracking-[0.1em] text-[var(--color-ash)] uppercase" style={{ fontFamily: 'var(--font-body)' }}>
             © {currentYear} SaGa Montana. All Rights Reserved.
           </p>

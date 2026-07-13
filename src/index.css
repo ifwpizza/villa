@@ -8,9 +8,12 @@
   --color-noir-light: #1D1D1D;
   --color-noir-muted: #2A2A2A;
   --color-champagne: #C9A74A;
-  --color-champagne-light: #D4B85C;
+  --color-champagne-light: #E2C468;
   --color-champagne-dark: #A8893A;
   --color-champagne-muted: rgba(201, 167, 74, 0.15);
+  --color-gold-deep: #8B6914;
+  --color-gold-royal: #D4AF37;
+  --color-gold-pale: #F5E6A3;
   --color-burgundy: #8E1F1F;
   --color-burgundy-dark: #6B1717;
   --color-burgundy-light: #A52A2A;
@@ -59,10 +62,19 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-champagne-dark), var(--color-champagne), var(--color-champagne-light));
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold-deep), var(--color-champagne), var(--color-gold-royal), var(--color-champagne-light));
+  background-size: 200% 100%;
+  animation: goldShimmerBar 3s ease-in-out infinite;
   z-index: 9999;
   transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(201, 167, 74, 0.6), 0 0 24px rgba(201, 167, 74, 0.2);
+}
+
+@keyframes goldShimmerBar {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ── Section Spacing ── */
@@ -87,6 +99,15 @@ body {
   color: var(--color-warm-white);
 }
 
+/* ── Gold Heading Accent ── */
+.heading-gold-accent {
+  background: linear-gradient(135deg, var(--color-champagne-dark) 0%, var(--color-gold-royal) 40%, var(--color-champagne-light) 70%, var(--color-champagne) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(201, 167, 74, 0.25));
+}
+
 /* ── Label / Eyebrow ── */
 .eyebrow {
   font-family: var(--font-body);
@@ -95,6 +116,26 @@ body {
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--color-champagne);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-champagne));
+}
+
+.eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-champagne), transparent);
 }
 
 .eyebrow-dark {
@@ -103,37 +144,121 @@ body {
   font-weight: 500;
   letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--color-ash);
+  color: var(--color-champagne-dark);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.eyebrow-dark::before {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-champagne-dark));
+}
+
+.eyebrow-dark::after {
+  content: '';
+  display: inline-block;
+  width: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-champagne-dark), transparent);
 }
 
 /* ── Gold Divider ── */
 .gold-divider {
   width: 3rem;
   height: 1px;
-  background: var(--color-champagne);
-  opacity: 0.6;
+  background: linear-gradient(90deg, var(--color-champagne-dark), var(--color-gold-royal), var(--color-champagne-light));
+  opacity: 0.8;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }
 
 .gold-divider-wide {
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-champagne), transparent);
-  opacity: 0.3;
+  background: linear-gradient(90deg, transparent, var(--color-champagne-dark), var(--color-gold-royal), var(--color-champagne-dark), transparent);
+  opacity: 0.5;
+  box-shadow: 0 0 6px rgba(201, 167, 74, 0.2);
+}
+
+/* ── Royal Ornament Divider ── */
+.royal-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.royal-divider::before,
+.royal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 167, 74, 0.5));
+}
+
+.royal-divider::after {
+  background: linear-gradient(90deg, rgba(201, 167, 74, 0.5), transparent);
 }
 
 /* ── Glass Effects ── */
 .glass-dark {
-  background: rgba(22, 22, 22, 0.75);
+  background: linear-gradient(135deg, rgba(22, 22, 22, 0.82) 0%, rgba(18, 14, 6, 0.9) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(201, 167, 74, 0.12);
+  border: 1px solid rgba(201, 167, 74, 0.22);
+  box-shadow:
+    inset 0 1px 0 rgba(201, 167, 74, 0.08),
+    inset 0 -1px 0 rgba(201, 167, 74, 0.04),
+    0 24px 64px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-dark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 167, 74, 0.45), transparent);
+  pointer-events: none;
 }
 
 .glass-light {
   background: rgba(253, 251, 248, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(201, 167, 74, 0.15);
+  border: 1px solid rgba(201, 167, 74, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 16px 48px rgba(139, 105, 20, 0.08);
+}
+
+/* ── Section Gold Border Top ── */
+.section-gold-top {
+  border-top: 1px solid;
+  border-image: linear-gradient(90deg, transparent, var(--color-champagne), transparent) 1;
+}
+
+/* ── Royal Section Background ── */
+.section-royal-dark {
+  background: linear-gradient(160deg, #0e0b04 0%, #161616 40%, #0d0a02 100%);
+  position: relative;
+}
+
+.section-royal-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(201, 167, 74, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(212, 175, 55, 0.04) 0%, transparent 60%);
+  pointer-events: none;
 }
 
 /* ── Ken Burns Animation ── */
@@ -150,12 +275,37 @@ body {
   animation: kenBurns 20s ease-in-out infinite alternate;
 }
 
+/* ── Gold Shimmer Animation ── */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.gold-shimmer-text {
+  background: linear-gradient(90deg, var(--color-champagne-dark) 0%, var(--color-gold-royal) 30%, var(--color-gold-pale) 50%, var(--color-gold-royal) 70%, var(--color-champagne-dark) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 4s linear infinite;
+}
+
+/* ── Gold Glow Pulse ── */
+@keyframes goldGlowPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(201, 167, 74, 0.2), 0 0 24px rgba(201, 167, 74, 0.05); }
+  50% { box-shadow: 0 0 20px rgba(201, 167, 74, 0.4), 0 0 40px rgba(201, 167, 74, 0.1); }
+}
+
+.gold-glow {
+  animation: goldGlowPulse 3s ease-in-out infinite;
+}
+
 /* ── Luxury Loading Screen ── */
 .loading-screen {
   position: fixed;
   inset: 0;
   z-index: 10000;
-  background: var(--color-noir);
+  background: radial-gradient(ellipse at center, #1a1408 0%, #0a0a0a 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,9 +322,9 @@ body {
 }
 
 .loading-bar {
-  width: 120px;
+  width: 160px;
   height: 1px;
-  background: var(--color-noir-muted);
+  background: rgba(201, 167, 74, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -183,8 +333,9 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--color-champagne);
+  background: linear-gradient(90deg, var(--color-champagne-dark), var(--color-gold-royal), var(--color-champagne-light));
   animation: loadProgress 2s ease-in-out forwards;
+  box-shadow: 0 0 8px rgba(201, 167, 74, 0.8);
 }
 
 @keyframes loadProgress {
@@ -214,6 +365,12 @@ body {
   margin-bottom: 1rem;
 }
 
+/* ── Gallery Gold Frame Effect ── */
+.masonry-gallery > *:hover {
+  outline: 1px solid rgba(201, 167, 74, 0.35);
+  outline-offset: -1px;
+}
+
 @media (max-width: 1024px) {
   .masonry-gallery {
     columns: 2;
@@ -230,10 +387,10 @@ body {
 .glow-follow {
   pointer-events: none;
   position: fixed;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 167, 74, 0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(201, 167, 74, 0.06) 0%, rgba(201, 167, 74, 0.02) 40%, transparent 70%);
   transform: translate(-50%, -50%);
   z-index: 1;
   transition: opacity 0.3s;
@@ -248,13 +405,14 @@ body {
   gap: 0.6rem;
   overflow: hidden;
   border-radius: 999px;
-  padding: 0.95rem 1.45rem;
-  background: linear-gradient(135deg, rgba(201, 167, 74, 0.18) 0%, rgba(201, 167, 74, 0.08) 45%, rgba(255, 255, 255, 0.04) 100%);
-  border: 1px solid rgba(201, 167, 74, 0.35);
+  padding: 0.95rem 1.6rem;
+  background: linear-gradient(135deg, rgba(201, 167, 74, 0.22) 0%, rgba(212, 175, 55, 0.14) 45%, rgba(255, 255, 255, 0.04) 100%);
+  border: 1px solid rgba(201, 167, 74, 0.45);
   color: var(--color-warm-white);
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 0 20px rgba(201, 167, 74, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   font-family: var(--font-body);
   font-size: 0.62rem;
   font-weight: 600;
@@ -274,20 +432,21 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.18) 50%, transparent 80%);
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.22) 50%, transparent 80%);
   transform: translateX(-130%);
   transition: transform 0.8s ease;
 }
 
 .booking-cta:hover {
   transform: translateY(-2px);
-  border-color: rgba(201, 167, 74, 0.65);
-  background: linear-gradient(135deg, rgba(201, 167, 74, 0.28) 0%, rgba(201, 167, 74, 0.12) 50%, rgba(255, 255, 255, 0.06) 100%);
+  border-color: rgba(212, 175, 55, 0.8);
+  background: linear-gradient(135deg, rgba(201, 167, 74, 0.35) 0%, rgba(212, 175, 55, 0.18) 50%, rgba(255, 255, 255, 0.06) 100%);
   box-shadow:
     0 18px 40px rgba(0, 0, 0, 0.24),
-    0 0 0 1px rgba(201, 167, 74, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  color: var(--color-warm-white);
+    0 0 30px rgba(201, 167, 74, 0.25),
+    0 0 0 1px rgba(201, 167, 74, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: var(--color-champagne-light);
 }
 
 .booking-cta:hover::before {
@@ -301,7 +460,7 @@ body {
 
 /* ── Scrollbar Styling ── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -309,12 +468,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-champagne-dark);
+  background: linear-gradient(180deg, var(--color-champagne-dark), var(--color-gold-royal), var(--color-champagne-dark));
   border-radius: 3px;
+  box-shadow: 0 0 4px rgba(201, 167, 74, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-champagne);
+  background: linear-gradient(180deg, var(--color-champagne), var(--color-champagne-light));
 }
 
 /* ── Utility: Image Dim on Hover Container ── */
@@ -324,4 +484,82 @@ body {
 
 .image-reveal img {
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Royal Card ── */
+.royal-card {
+  position: relative;
+  border: 1px solid rgba(201, 167, 74, 0.2);
+  background: linear-gradient(135deg, rgba(201, 167, 74, 0.03) 0%, transparent 60%);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.royal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 167, 74, 0.5), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.royal-card:hover {
+  border-color: rgba(201, 167, 74, 0.4);
+  box-shadow: 0 8px 32px rgba(139, 105, 20, 0.12), 0 0 0 1px rgba(201, 167, 74, 0.1) inset;
+}
+
+.royal-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Royal Corner Ornament ── */
+.corner-ornament {
+  position: relative;
+}
+
+.corner-ornament::before,
+.corner-ornament::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(201, 167, 74, 0.4);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.corner-ornament::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.corner-ornament::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* ── Section Parchment Gold Wash ── */
+.bg-parchment-gold {
+  background: linear-gradient(160deg, #FAF8F5 0%, #F8F2E8 50%, #FAF8F5 100%);
+  position: relative;
+}
+
+.bg-parchment-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 0%, rgba(201, 167, 74, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 100%, rgba(201, 167, 74, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ── Review Stars Glow ── */
+.star-gold {
+  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.6));
 }

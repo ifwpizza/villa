@@ -4,7 +4,7 @@ export default function Contact() {
   const whatsappMessage = encodeURIComponent('Hello, I’m interested in booking and would like to know more.');
 
   return (
-    <section id="contact" className="section-luxury bg-[var(--color-parchment)]">
+    <section id="contact" className="section-luxury bg-parchment-gold">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           
@@ -14,7 +14,7 @@ export default function Contact() {
             <h2 className="heading-luxury mb-10" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)' }}>
               Contact Us
             </h2>
-            <div className="gold-divider mb-10" />
+            <div className="gold-divider mb-10" style={{ boxShadow: '0 0 12px rgba(212,175,55,0.5)', width: '4rem' }} />
 
             <div className="flex flex-col gap-10">
               <div>
@@ -66,12 +66,12 @@ export default function Contact() {
               </a>
               <a
                 href="tel:+918591994866"
-                className="px-8 py-3 text-[0.65rem] tracking-[0.3em] uppercase transition-all duration-500 hover:bg-[var(--color-noir)] hover:text-white"
+              className="px-8 py-3 text-[0.65rem] tracking-[0.3em] uppercase transition-all duration-500 hover:bg-[var(--color-champagne)] hover:text-[var(--color-noir)]"
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 500,
-                  border: '1px solid var(--color-noir)',
-                  color: 'var(--color-noir)',
+                  border: '1px solid rgba(201,167,74,0.5)',
+                  color: 'var(--color-champagne-dark)',
                 }}
               >
                 Call
@@ -86,8 +86,8 @@ export default function Contact() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="w-full h-[400px] md:h-[600px] overflow-hidden"
-              style={{ border: '1px solid var(--color-stone)' }}
+              className="w-full h-[400px] md:h-[600px] overflow-hidden corner-ornament"
+              style={{ border: '1px solid rgba(201,167,74,0.2)' }}
             >
               <img
                 src="/images/community-exterior.jpeg"

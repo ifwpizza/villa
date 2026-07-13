@@ -40,7 +40,7 @@ const minimalAmenities = [
 
 export default function Amenities() {
   return (
-    <section id="amenities" className="bg-[var(--color-noir)]">
+    <section id="amenities" className="section-royal-dark">
       {/* Header */}
       <div className="section-luxury pb-0">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
@@ -49,7 +49,13 @@ export default function Amenities() {
             <h2 className="heading-luxury-light" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
               Everything You Need,
               <br />
-              <em style={{ fontWeight: 300 }}>Nothing You Don't</em>
+              <em style={{
+                fontWeight: 300,
+                background: 'linear-gradient(135deg, #A8893A 0%, #D4AF37 40%, #F5E6A3 60%, #C9A74A 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}>Nothing You Don't</em>
             </h2>
           </div>
           <p className="text-sm max-w-md text-[var(--color-ash)] leading-relaxed" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
@@ -57,6 +63,11 @@ export default function Amenities() {
             every amenity is thoughtfully integrated into the villa experience.
           </p>
         </div>
+      </div>
+
+      {/* Gold divider before grid */}
+      <div className="max-w-7xl mx-auto px-[clamp(1.5rem,5vw,4rem)]">
+        <div className="gold-divider-wide mb-0" />
       </div>
 
       {/* Large Photography Grid with Hover Reveal */}
@@ -78,11 +89,29 @@ export default function Amenities() {
             />
 
             {/* Default: subtle gradient with title */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-700 group-hover:from-black/90 group-hover:via-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-all duration-700 group-hover:from-black/92 group-hover:via-black/50" />
+
+            {/* Gold corner accent on hover */}
+            <div className="absolute top-0 left-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+              borderTop: '1px solid rgba(212,175,55,0.6)',
+              borderLeft: '1px solid rgba(212,175,55,0.6)',
+            }} />
+            <div className="absolute bottom-0 right-0 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{
+              borderBottom: '1px solid rgba(212,175,55,0.6)',
+              borderRight: '1px solid rgba(212,175,55,0.6)',
+            }} />
 
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
-              <div className="gold-divider mb-4 transition-all duration-700 group-hover:w-16" style={{ width: '2rem' }} />
+              <div
+                className="mb-4 transition-all duration-700 group-hover:w-16"
+                style={{
+                  width: '2rem',
+                  height: '1px',
+                  background: 'linear-gradient(90deg, var(--color-champagne-dark), var(--color-gold-royal))',
+                  boxShadow: '0 0 8px rgba(212,175,55,0.5)',
+                }}
+              />
               <h3
                 className="text-white text-xl md:text-2xl mb-2 transition-all duration-500"
                 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}
@@ -104,8 +133,8 @@ export default function Amenities() {
       <div className="section-luxury">
         <div className="max-w-7xl mx-auto">
           <div className="gold-divider-wide mb-12" />
-          <p className="eyebrow mb-8">Also Included</p>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 gap-y-5">
+          <p className="eyebrow mb-10">Also Included</p>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 gap-y-6">
             {minimalAmenities.map((name, i) => (
               <motion.span
                 key={i}
@@ -113,11 +142,17 @@ export default function Amenities() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: i * 0.04 }}
-                className="text-[var(--color-ash)] text-sm flex items-center gap-3"
+                className="text-[var(--color-ash)] text-sm flex items-center gap-3 group"
                 style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
               >
-                <span className="w-1 h-1 bg-[var(--color-champagne)] rounded-full flex-shrink-0" />
-                {name}
+                <span
+                  className="w-1.5 h-1.5 flex-shrink-0 rounded-full transition-all duration-300 group-hover:scale-125"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--color-champagne-dark), var(--color-gold-royal))',
+                    boxShadow: '0 0 6px rgba(212,175,55,0.5)',
+                  }}
+                />
+                <span className="group-hover:text-[var(--color-ash-light)] transition-colors duration-300">{name}</span>
               </motion.span>
             ))}
           </div>

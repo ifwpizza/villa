@@ -29,9 +29,13 @@ export default function Hero() {
           className="ken-burns absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('/images/hero-sunset-pool.jpeg')` }}
         />
-        {/* Very dark luxury overlay */}
+        {/* Royal luxury overlay — deeper with warm gold tint at bottom */}
         <div className="absolute inset-0" style={{
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.75) 100%)',
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 40%, rgba(10,7,2,0.82) 100%)',
+        }} />
+        {/* Subtle gold radial glow from center */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at 50% 60%, rgba(201,167,74,0.06) 0%, transparent 65%)',
         }} />
       </div>
 
@@ -49,10 +53,34 @@ export default function Hero() {
             className="heading-luxury-light mb-12"
             style={{ fontSize: 'clamp(2.8rem, 8vw, 7rem)' }}
           >
-            Experience <em style={{ fontWeight: 300 }}>Nature</em>
+            Experience{' '}
+            <em
+              style={{
+                fontWeight: 300,
+                background: 'linear-gradient(135deg, #A8893A 0%, #D4AF37 35%, #F5E6A3 55%, #D4AF37 75%, #C9A74A 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                filter: 'drop-shadow(0 0 24px rgba(212,175,55,0.35))',
+              }}
+            >
+              Nature
+            </em>
             <br />
             Like Never Before
           </motion.h1>
+
+          {/* Royal gold divider under heading */}
+          <motion.div
+            variants={lineVariant}
+            style={{
+              width: '6rem',
+              height: '1px',
+              background: 'linear-gradient(90deg, transparent, #D4AF37, #C9A74A, #D4AF37, transparent)',
+              boxShadow: '0 0 12px rgba(212,175,55,0.5)',
+              marginBottom: '0',
+            }}
+          />
         </motion.div>
 
         {/* Scroll indicator */}
@@ -67,9 +95,14 @@ export default function Hero() {
             Scroll
           </span>
           <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
-            className="w-px h-8 bg-gradient-to-b from-[#C9A74A] to-transparent"
+            style={{
+              width: '1px',
+              height: '2.5rem',
+              background: 'linear-gradient(180deg, #D4AF37, #C9A74A, transparent)',
+              boxShadow: '0 0 6px rgba(212,175,55,0.4)',
+            }}
           />
         </motion.div>
       </div>

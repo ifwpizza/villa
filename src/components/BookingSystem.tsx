@@ -103,7 +103,9 @@ export default function BookingSystem() {
     <section id="booking" className="relative min-h-screen overflow-hidden">
       {/* Large background image */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('/images/dusk-pool-villa.jpeg')` }} />
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(22,22,22,0.85) 0%, rgba(22,22,22,0.75) 50%, rgba(22,22,22,0.9) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(10,7,2,0.88) 0%, rgba(18,12,3,0.78) 50%, rgba(10,7,2,0.92) 100%)' }} />
+      {/* Gold ambient glow */}
+      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 30% 40%, rgba(201,167,74,0.05) 0%, transparent 55%)' }} />
 
       <div className="relative z-10 section-luxury">
         <div className="max-w-7xl mx-auto">
@@ -213,10 +215,10 @@ export default function BookingSystem() {
 
             {/* Floating Summary Panel — glass */}
             <div className="lg:col-span-5">
-              <div className="glass-dark p-8 md:p-10 sticky top-28">
+              <div className="glass-dark p-10 md:p-12 sticky top-28">
                 <p className="eyebrow mb-8">Booking Summary</p>
 
-                <div className="flex flex-col gap-5 text-sm mb-8" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                <div className="flex flex-col gap-6 text-sm mb-8" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
                   <div className="flex justify-between text-[var(--color-ash)]">
                     <span>Check-in</span>
                     <span className="text-[var(--color-warm-white)]">{checkIn ? fmt(checkIn) : '—'}</span>
@@ -251,14 +253,14 @@ export default function BookingSystem() {
                 <div className="gold-divider-wide mb-6" />
 
                 {/* Animated Price */}
-                <div className="flex justify-between items-baseline mb-10">
+                <div className="flex justify-between items-baseline mb-12">
                   <span className="text-[0.6rem] tracking-[0.3em] uppercase text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Total</span>
                   <motion.span
                     key={finalPrice}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
-                    style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', color: 'var(--color-champagne)' }}
+                  style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', background: 'linear-gradient(135deg, #A8893A 0%, #D4AF37 40%, #F5E6A3 60%, #C9A74A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
                   >
                     {finalPrice > 0 ? `₹${finalPrice.toLocaleString('en-IN')}` : '—'}
                   </motion.span>
@@ -271,8 +273,11 @@ export default function BookingSystem() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 600,
-                    background: !checkIn || !checkOut || error ? 'rgba(255,255,255,0.03)' : 'var(--color-burgundy)',
+                    background: !checkIn || !checkOut || error
+                      ? 'rgba(255,255,255,0.03)'
+                      : 'var(--color-burgundy)',
                     color: 'var(--color-warm-white)',
+                    boxShadow: !checkIn || !checkOut || error ? 'none' : '0 4px 20px rgba(142,31,31,0.4)',
                   }}
                 >
                   {loading ? 'Processing...' : 'Confirm Reservation'}

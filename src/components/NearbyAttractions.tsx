@@ -40,7 +40,7 @@ const attractions = [
 
 export default function NearbyAttractions() {
   return (
-    <section id="nearby" className="section-luxury bg-[var(--color-parchment)]">
+    <section id="nearby" className="section-luxury bg-parchment-gold">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-16">
@@ -59,8 +59,7 @@ export default function NearbyAttractions() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden cursor-default"
-              style={{ border: '1px solid var(--color-stone)' }}
+              className="royal-card group grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden cursor-default"
             >
               {/* Image */}
               <div className="md:col-span-4 h-[200px] md:h-[220px] overflow-hidden image-reveal relative">
@@ -70,19 +69,7 @@ export default function NearbyAttractions() {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                {/* Distance Badge */}
-                <div
-                  className="absolute top-4 left-4 px-3 py-1.5 text-[0.55rem] tracking-[0.2em] uppercase"
-                  style={{
-                    fontFamily: 'var(--font-body)',
-                    fontWeight: 600,
-                    background: 'rgba(22,22,22,0.85)',
-                    color: 'var(--color-champagne)',
-                    backdropFilter: 'blur(8px)',
-                  }}
-                >
-                  {a.distance}
-                </div>
+
               </div>
 
               {/* Content */}

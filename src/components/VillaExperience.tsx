@@ -61,9 +61,14 @@ export default function VillaExperience() {
                   onClick={() => setActiveIdx(i)}
                   className={`w-16 h-16 md:w-20 md:h-20 overflow-hidden transition-all duration-500 ${
                     activeIdx === i
-                      ? 'ring-1 ring-[var(--color-champagne)] opacity-100'
+                      ? 'opacity-100'
                       : 'opacity-40 hover:opacity-70'
                   }`}
+                  style={activeIdx === i ? {
+                    outline: '1px solid rgba(212,175,55,0.8)',
+                    outlineOffset: '2px',
+                    boxShadow: '0 0 16px rgba(212,175,55,0.4)',
+                  } : {}}
                 >
                   <img src={img.src} alt="" className="w-full h-full object-cover" />
                 </button>
@@ -144,7 +149,7 @@ export default function VillaExperience() {
               {/* Pricing Table */}
               <div className="border border-white/8">
                 {/* Header */}
-                <div className="flex border-b border-white/8 px-8 py-5" style={{ background: 'rgba(201,167,74,0.05)' }}>
+                <div className="flex border-b border-white/8 px-8 py-5" style={{ background: 'linear-gradient(90deg, rgba(201,167,74,0.08) 0%, rgba(212,175,55,0.04) 100%)' }}>
                   <span className="flex-1 text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                     Period
                   </span>
@@ -164,7 +169,7 @@ export default function VillaExperience() {
                   <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
                     ₹10,000
                   </span>
-                  <span className="w-40 text-right text-xl text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
+                  <span className="w-40 text-right text-xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, background: 'linear-gradient(135deg, #A8893A, #D4AF37, #C9A74A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                     ₹8,000
                   </span>
                 </div>
@@ -177,7 +182,7 @@ export default function VillaExperience() {
                   <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
                     ₹15,000
                   </span>
-                  <span className="w-40 text-right text-xl text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
+                  <span className="w-40 text-right text-xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, background: 'linear-gradient(135deg, #A8893A, #D4AF37, #C9A74A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                     ₹12,000
                   </span>
                 </div>
@@ -194,8 +199,13 @@ export default function VillaExperience() {
               <motion.a
                 href="#booking"
                 whileHover={{ scale: 1.01 }}
-                className="mt-10 block w-full text-center py-5 text-[0.65rem] tracking-[0.35em] uppercase bg-[var(--color-burgundy)] hover:bg-[var(--color-burgundy-dark)] text-[var(--color-warm-white)] transition-colors duration-500"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}
+                className="mt-10 block w-full text-center py-5 text-[0.65rem] tracking-[0.35em] uppercase text-[var(--color-warm-white)] transition-all duration-500 hover:bg-[var(--color-burgundy-dark)]"
+                style={{
+                  fontFamily: 'var(--font-body)',
+                  fontWeight: 600,
+                  background: 'var(--color-burgundy)',
+                  boxShadow: '0 4px 20px rgba(142,31,31,0.35)',
+                }}
               >
                 Reserve Your Stay
               </motion.a>
