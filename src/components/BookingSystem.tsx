@@ -1,19 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 
 const WHATSAPP_NUMBER = '918591994866';
 
-const getMockBookedDates = () => {
-  const today = new Date();
-  const y = today.getFullYear();
-  const m = String(today.getMonth() + 1).padStart(2, '0');
-  return [
-    `${y}-${m}-12`, `${y}-${m}-13`, `${y}-${m}-14`,
-    `${y}-${m}-20`, `${y}-${m}-21`, `${y}-${m}-22`, `${y}-${m}-26`,
-  ];
-};
-
-const bookedDates = getMockBookedDates();
 const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 export default function BookingSystem() {
@@ -26,12 +15,34 @@ export default function BookingSystem() {
   const [curYear, setCurYear] = useState(new Date().getFullYear());
   const [curMonth, setCurMonth] = useState(new Date().getMonth());
   const [selecting, setSelecting] = useState<'in' | 'out'>('in');
+  const [bookedDates, setBookedDates] = useState<string[]>([]);
 
   const total = adults + children;
   const [nights, setNights] = useState(0);
   const [basePrice, setBasePrice] = useState(0);
   const [discPct, setDiscPct] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
+
+  // Fetch live availability from backend
+  const fetchAvailability = useCallback(async () => {
+    try {
+      const res = await fetch('/api/availability');
+      if (res.ok) {
+        const data = await res.json();
+        setBookedDates(data.bookedDates || []);
+      }
+    } catch {
+      // Silently fail — calendar will show all dates as available
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAvailability();
+    // Refresh when tab regains focus
+    const handleFocus = () => fetchAvailability();
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [fetchAvailability]);
 
   useEffect(() => {
     if (total > 8) setError('Maximum occupancy: 8 guests');

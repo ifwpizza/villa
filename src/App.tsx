@@ -12,12 +12,39 @@ import BookingSystem from './components/BookingSystem';
 import FloatingCTA from './components/FloatingCTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import OwnerLogin from './components/OwnerLogin';
+import OwnerPanel from './components/OwnerPanel';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showGlow, setShowGlow] = useState(false);
+
+  // Owner mode state
+  const [showOwnerLogin, setShowOwnerLogin] = useState(false);
+  const [ownerToken, setOwnerToken] = useState<string | null>(null);
+
+  // Check for existing session on mount
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem('ownerToken');
+    if (storedToken) {
+      // Verify the token is still valid
+      fetch('/api/verify', {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+        .then((res) => {
+          if (res.ok) {
+            setOwnerToken(storedToken);
+          } else {
+            sessionStorage.removeItem('ownerToken');
+          }
+        })
+        .catch(() => {
+          sessionStorage.removeItem('ownerToken');
+        });
+    }
+  }, []);
 
   // Loading screen
   useEffect(() => {
@@ -50,6 +77,21 @@ function App() {
       document.removeEventListener('mouseleave', handleLeave);
     };
   }, []);
+
+  const handleOwnerLogin = (token: string) => {
+    setOwnerToken(token);
+    setShowOwnerLogin(false);
+  };
+
+  const handleOwnerLogout = () => {
+    setOwnerToken(null);
+    sessionStorage.removeItem('ownerToken');
+  };
+
+  // If owner is authenticated, show the owner panel
+  if (ownerToken) {
+    return <OwnerPanel token={ownerToken} onLogout={handleOwnerLogout} />;
+  }
 
   return (
     <>
@@ -115,8 +157,18 @@ function App() {
         <NearbyAttractions />
         <FloatingCTA />
         <Contact />
-        <Footer />
+        <Footer onOwnerLogin={() => setShowOwnerLogin(true)} />
       </motion.div>
+
+      {/* Owner Login Modal */}
+      <AnimatePresence>
+        {showOwnerLogin && (
+          <OwnerLogin
+            onLogin={handleOwnerLogin}
+            onClose={() => setShowOwnerLogin(false)}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

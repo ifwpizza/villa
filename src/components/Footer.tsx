@@ -1,4 +1,8 @@
-export default function Footer() {
+interface FooterProps {
+  onOwnerLogin?: () => void;
+}
+
+export default function Footer({ onOwnerLogin }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   const instaImages = [
@@ -107,6 +111,13 @@ export default function Footer() {
           <div className="flex gap-6 text-[0.6rem] tracking-[0.1em] text-[var(--color-ash)] uppercase" style={{ fontFamily: 'var(--font-body)' }}>
             <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">Privacy</a>
             <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">Terms</a>
+            <button
+              onClick={onOwnerLogin}
+              className="hover:text-[var(--color-champagne)] transition-colors cursor-pointer bg-transparent border-none"
+              style={{ fontFamily: 'inherit', fontSize: 'inherit', letterSpacing: 'inherit', textTransform: 'inherit' as const, color: 'inherit', padding: 0 }}
+            >
+              Owner Login 🔒
+            </button>
           </div>
         </div>
 
