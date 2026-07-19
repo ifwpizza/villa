@@ -5,43 +5,14 @@ interface FooterProps {
 export default function Footer({ onOwnerLogin }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
-  const instaImages = [
-    '/images/pool-daytime.jpeg',
-    '/images/living-room-night.jpeg',
-    '/images/balcony-mountain-view.jpeg',
-    '/images/bedroom-tv-curtains.jpeg',
-  ];
-
   return (
-    <footer className="text-[var(--color-warm-white)] pt-20 pb-10 section-royal-dark">
+    <footer className="relative overflow-hidden text-[var(--color-warm-white)] pt-16 pb-10 section-royal-dark">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold-royal)] to-transparent" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-28 w-[34rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(201,167,74,0.11),_transparent_70%)]" />
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        
-        {/* Instagram Gallery Strip */}
-        <div className="mb-20">
-          <div className="flex justify-between items-end mb-6">
-            <h4 className="text-[0.6rem] tracking-[0.3em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
-              @sagamontana
-            </h4>
-            <a href="#" className="text-[0.55rem] tracking-[0.2em] uppercase text-[var(--color-ash)] hover:text-white transition-colors" style={{ fontFamily: 'var(--font-body)' }}>
-              Follow Us
-            </a>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {instaImages.map((src, i) => (
-              <a key={i} href="#" className="block overflow-hidden group aspect-square">
-                <img
-                  src={src}
-                  alt="Instagram snippet"
-                  className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 opacity-70 group-hover:opacity-100"
-                  loading="lazy"
-                />
-              </a>
-            ))}
-          </div>
-        </div>
 
-        {/* Huge Logo */}
-        <div className="flex flex-col items-center text-center mb-16">
+        {/* Royal wordmark */}
+        <div className="relative flex flex-col items-center text-center mb-14">
           <a href="#home" className="inline-block hover:opacity-80 transition-opacity">
             <span
               className="text-[3rem] md:text-[5rem] tracking-[0.05em] gold-shimmer-text"
@@ -69,11 +40,11 @@ export default function Footer({ onOwnerLogin }: FooterProps) {
         </div>
 
         {/* Main Footer Links Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-14 text-center md:text-left">
           
           {/* Address */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Location</h4>
+          <div className="flex flex-col gap-4 md:pr-10 md:border-r md:border-[rgba(201,167,74,0.22)]">
+            <h4 className="text-[0.55rem] tracking-[0.32em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Location</h4>
             <p className="text-[0.7rem] leading-[1.8] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               Yash Villas A1/2, Dahivali,<br />
               Near Ekvira Temple, Karla,<br />
@@ -82,8 +53,8 @@ export default function Footer({ onOwnerLogin }: FooterProps) {
           </div>
 
           {/* Links */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Explore</h4>
+          <div className="flex flex-col gap-4 md:px-10 md:border-r md:border-[rgba(201,167,74,0.22)]">
+            <h4 className="text-[0.55rem] tracking-[0.32em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Explore</h4>
             <ul className="flex flex-col gap-3 text-[0.7rem] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               <li><a href="#villa" className="hover:text-[var(--color-champagne)] transition-colors">The Retreat</a></li>
               <li><a href="#gallery" className="hover:text-[var(--color-champagne)] transition-colors">Gallery</a></li>
@@ -93,8 +64,8 @@ export default function Footer({ onOwnerLogin }: FooterProps) {
           </div>
 
           {/* Contact */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Contact</h4>
+          <div className="flex flex-col gap-4 md:pl-10">
+            <h4 className="text-[0.55rem] tracking-[0.32em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Contact</h4>
             <p className="text-[0.7rem] leading-[1.8] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               sagamontana8@gmail.com<br />
               +91 85919 94866
