@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchAvailability as loadAvailability, saveAvailability, logoutOwner } from '../lib/ownerApi';
 
 interface OwnerPanelProps {
-  token: string;
   onLogout: () => void;
 }
 
@@ -11,7 +11,7 @@ const monthNames = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-export default function OwnerPanel({ token, onLogout }: OwnerPanelProps) {
+export default function OwnerPanel({ onLogout }: OwnerPanelProps) {
   const today = new Date();
   const [curYear, setCurYear] = useState(today.getFullYear());
   const [curMonth, setCurMonth] = useState(today.getMonth());
@@ -26,8 +26,7 @@ export default function OwnerPanel({ token, onLogout }: OwnerPanelProps) {
   // Load initial data
   const fetchAvailability = useCallback(async () => {
     try {
-      const res = await fetch('/api/availability');
-      const data = await res.json();
+      const data = await loadAvailability();
       setBookedDates(new Set(data.bookedDates || []));
     } catch {
       showToast('Failed to load availability data', 'error');
@@ -131,14 +130,7 @@ export default function OwnerPanel({ token, onLogout }: OwnerPanelProps) {
   const saveChanges = async () => {
     setSaving(true);
     try {
-      const res = await fetch('/api/availability', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ bookedDates: [...bookedDates].sort() }),
-      });
+      const res = await saveAvailability([...bookedDates].sort());
 
       if (!res.ok) {
         const data = await res.json();
@@ -160,8 +152,8 @@ export default function OwnerPanel({ token, onLogout }: OwnerPanelProps) {
     }
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('ownerToken');
+  const handleLogout = async () => {
+    await logoutOwner();
     onLogout();
   };
 

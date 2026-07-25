@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { loginOwner } from '../lib/ownerApi';
 
 interface OwnerLoginProps {
-  onLogin: (token: string) => void;
+  onLogin: () => void;
   onClose: () => void;
 }
 
@@ -19,22 +20,15 @@ export default function OwnerLogin({ onLogin, onClose }: OwnerLoginProps) {
     setError('');
 
     try {
-      const res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
-      });
+      const result = await loginOwner(password);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || 'Authentication failed');
+      if (!result.ok) {
+        setError(result.error);
         setLoading(false);
         return;
       }
 
-      sessionStorage.setItem('ownerToken', data.token);
-      onLogin(data.token);
+      onLogin();
     } catch {
       setError('Server unavailable. Please try again.');
       setLoading(false);

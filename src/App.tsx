@@ -14,6 +14,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import OwnerLogin from './components/OwnerLogin';
 import OwnerPanel from './components/OwnerPanel';
+import { verifyOwnerSession, logoutOwner } from './lib/ownerApi';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -23,27 +24,12 @@ function App() {
 
   // Owner mode state
   const [showOwnerLogin, setShowOwnerLogin] = useState(false);
-  const [ownerToken, setOwnerToken] = useState<string | null>(null);
+  const [ownerAuthenticated, setOwnerAuthenticated] = useState(false);
 
-  // Check for existing session on mount
   useEffect(() => {
-    const storedToken = sessionStorage.getItem('ownerToken');
-    if (storedToken) {
-      // Verify the token is still valid
-      fetch('/api/verify', {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      })
-        .then((res) => {
-          if (res.ok) {
-            setOwnerToken(storedToken);
-          } else {
-            sessionStorage.removeItem('ownerToken');
-          }
-        })
-        .catch(() => {
-          sessionStorage.removeItem('ownerToken');
-        });
-    }
+    verifyOwnerSession().then((valid) => {
+      if (valid) setOwnerAuthenticated(true);
+    });
   }, []);
 
   // Loading screen
@@ -78,19 +64,18 @@ function App() {
     };
   }, []);
 
-  const handleOwnerLogin = (token: string) => {
-    setOwnerToken(token);
+  const handleOwnerLogin = () => {
+    setOwnerAuthenticated(true);
     setShowOwnerLogin(false);
   };
 
   const handleOwnerLogout = () => {
-    setOwnerToken(null);
-    sessionStorage.removeItem('ownerToken');
+    setOwnerAuthenticated(false);
+    void logoutOwner();
   };
 
-  // If owner is authenticated, show the owner panel
-  if (ownerToken) {
-    return <OwnerPanel token={ownerToken} onLogout={handleOwnerLogout} />;
+  if (ownerAuthenticated) {
+    return <OwnerPanel onLogout={handleOwnerLogout} />;
   }
 
   return (
