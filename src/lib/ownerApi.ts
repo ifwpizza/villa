@@ -18,6 +18,9 @@ export async function loginOwner(password: string): Promise<{ ok: true } | { ok:
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
+    if (res.status === 404 || res.status >= 502) {
+      return { ok: false, error: 'Booking API unavailable. Redeploy with serverless API and Vercel env vars.' };
+    }
     return { ok: false, error: (data as { error?: string }).error || 'Authentication failed' };
   }
   return { ok: true };

@@ -7,17 +7,28 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const ENV_FILE = path.resolve(__dirname, '..', '.env');
+const onVercel = Boolean(process.env.VERCEL);
 
-if (!fs.existsSync(ENV_FILE)) {
+if (fs.existsSync(ENV_FILE)) {
+  dotenv.config({ path: ENV_FILE });
+} else if (!onVercel) {
   console.error(
     '❌ Missing .env file. Copy .env.example to .env and set strong secrets before starting the server.'
   );
   process.exit(1);
 }
 
-dotenv.config({ path: ENV_FILE });
+const isProduction = process.env.NODE_ENV === 'production' || onVercel;
 
-const isProduction = process.env.NODE_ENV === 'production';
+function defaultCorsOrigins() {
+  if (process.env.CORS_ORIGIN) {
+    return process.env.CORS_ORIGIN;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return 'http://localhost:5173';
+}
 
 function requireSecret(name, minLength = 32) {
   const value = process.env[name]?.trim();
@@ -28,11 +39,15 @@ function requireSecret(name, minLength = 32) {
   }
   if (value.length < minLength) {
     const msg = `${name} should be at least ${minLength} characters for production security.`;
-    if (isProduction) {
+    if (isProduction && !onVercel) {
       console.error(`❌ ${msg}`);
       process.exit(1);
     }
-    console.warn(`⚠️  ${msg} (allowed in development — rotate before deploy)`);
+    if (isProduction && onVercel) {
+      console.error(`❌ ${msg}`);
+      process.exit(1);
+    }
+    console.warn(`⚠️  ${msg} (allowed in local development — rotate before deploy)`);
   }
   return value;
 }
@@ -56,10 +71,10 @@ export const config = {
   port: Number(process.env.PORT) || 3001,
   jwtSecret,
   csrfSecret: resolveCsrfSecret(jwtSecret),
-  corsOrigins: (process.env.CORS_ORIGIN || 'http://localhost:5173')
+  corsOrigins: defaultCorsOrigins()
     .split(',')
     .map((o) => o.trim())
     .filter(Boolean),
   cookieSecure: process.env.COOKIE_SECURE === 'true' || isProduction,
-  trustProxy: process.env.TRUST_PROXY === 'true' || isProduction,
+  trustProxy: process.env.TRUST_PROXY === 'true' || isProduction || onVercel,
 };
