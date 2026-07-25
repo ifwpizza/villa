@@ -56,15 +56,27 @@ You should see "Success. No rows returned" at the bottom.
 
 ## Step 3: Get Your Supabase Keys
 
-1. In the Supabase dashboard, click the **gear icon** (Settings) in the left sidebar
-2. Click **"API"** under "Configuration"
-3. You need two values from this page:
-   - **Project URL**: Looks like `https://xxxxxxxx.supabase.co`
-   - **Service Role Key**: Click the eye icon to reveal it. Looks like a long `eyJ...` string
+You need two things from Supabase: a **URL** and a **Secret Key**.
 
-**Save both of these. You'll need them in Step 6.**
+### Finding the Project URL
 
-> Never share the Service Role Key publicly. It has full access to your database.
+1. In your Supabase dashboard, look at the top of your project's main page
+2. You'll see **"Project URL"** — it looks like `https://xxxxxxxx.supabase.co`
+3. Copy this
+
+**OR** click the **connect** button (plug icon) at the top of the dashboard — it shows the URL there too.
+
+### Finding the Secret Key
+
+1. In the Supabase dashboard, go to **Project Settings** (click the gear icon in the left sidebar)
+2. Click **"API keys"** in the left menu
+3. You'll see two keys:
+   - **Publishable key** — we do NOT need this
+   - **Secret key** — click the eye icon to reveal it. This is what we need. It looks like a long `eyJ...` string.
+
+**Save both the URL and the Secret Key. You'll need them in Step 6.**
+
+> Never share the Secret Key publicly. It has full access to your database.
 
 ---
 
@@ -97,7 +109,7 @@ git push -u origin main
 
 ## Step 5: Generate Your Secrets
 
-Open Terminal and run these two commands to generate secure random strings:
+Open Terminal and run this command to generate a secure random string:
 
 ```bash
 openssl rand -base64 48
@@ -113,21 +125,17 @@ openssl rand -base64 48
 
 Copy this output too. This is your **CSRF_SECRET**.
 
-Run it one more time:
+Now generate the owner password hash. Replace `YOUR_PASSWORD_HERE` with the password you want to use to log in as owner (for example, your phone number or any password you'll remember):
 
 ```bash
-openssl rand -base64 48
+node -e "const b=require('bcryptjs');console.log(b.hashSync('YOUR_PASSWORD_HERE',12))"
 ```
 
-This output will be used to create your **OWNER_PASSWORD_HASH**.
+The output will start with `$2a$12$...` — copy the ENTIRE output. This is your **OWNER_PASSWORD_HASH**.
 
-Now generate the password hash (replace `YOUR_PASSWORD_HERE` with the password you want to use to log in as owner):
+**Remember the password you used — you'll need it to log in to the owner panel.**
 
-```bash
-node -e "console.log(require('bcryptjs').hashSync('YOUR_PASSWORD_HERE', 12))"
-```
-
-**Save this hash. This is your OWNER_PASSWORD_HASH. Remember the password you used — you'll need it to log in.**
+> **Important:** Make sure all quotes in the command above are straight quotes (`'`), not curly quotes (`'` `'`). If you get a syntax error, type the command fresh in a new terminal line.
 
 ---
 
@@ -142,23 +150,24 @@ node -e "console.log(require('bcryptjs').hashSync('YOUR_PASSWORD_HERE', 12))"
 | Name | Value |
 |------|-------|
 | `SUPABASE_URL` | Your Project URL from Step 3 (e.g. `https://xxxxxxxx.supabase.co`) |
-| `SUPABASE_SERVICE_KEY` | Your Service Role Key from Step 3 (the long `eyJ...` string) |
-| `OWNER_PASSWORD_HASH` | The bcrypt hash from Step 5 |
+| `SUPABASE_SERVICE_KEY` | Your Secret Key from Step 3 (the long `eyJ...` string) |
+| `OWNER_PASSWORD_HASH` | The bcrypt hash from Step 5 (starts with `$2a$`) |
 | `JWT_SECRET` | First random string from Step 5 |
 | `CSRF_SECRET` | Second random string from Step 5 |
+| `CORS_ORIGIN` | `https://YOUR_PROJECT.vercel.app` (replace with your actual Vercel URL — you'll see it after the first deploy) |
 
 6. Click **"Deploy"**
 7. Wait 2-3 minutes for the build to finish
+8. After deploy finishes, copy the URL Vercel gives you (e.g. `villa99-xxxx.vercel.app`) and update `CORS_ORIGIN` with `https://` + that URL, then redeploy
 
 ---
 
 ## Step 7: Test It
 
-1. Once deployed, Vercel will give you a URL like `villa99-xxxx.vercel.app`
-2. Open it in your browser — you should see the SaGa Montana website
-3. Scroll down to **"Book Your Stay"** and try selecting dates on the calendar
-4. To test the owner login:
-   - Scroll to the footer and click the owner login link
+1. Open your Vercel URL in your browser — you should see the SaGa Montana website
+2. Scroll down to **"Book Your Stay"** and try selecting dates on the calendar
+3. To test the owner login:
+   - Scroll to the footer and click the owner login
    - Enter the password you set in Step 5
    - You should see the Availability Manager panel
 
@@ -173,6 +182,7 @@ If you have a domain name (like `sagamontana.com`):
 3. Vercel will give you DNS records to add at your domain registrar
 4. Go to your domain registrar (GoDaddy, Namecheap, etc.) and add those DNS records
 5. Wait up to 24 hours for DNS to propagate (usually much faster)
+6. After your custom domain works, update `CORS_ORIGIN` to use your custom domain and redeploy
 
 ---
 
@@ -200,7 +210,7 @@ If you have a domain name (like `sagamontana.com`):
 1. Generate a new hash:
 
 ```bash
-node -e "console.log(require('bcryptjs').hashSync('NEW_PASSWORD', 12))"
+node -e "const b=require('bcryptjs');console.log(b.hashSync('NEW_PASSWORD',12))"
 ```
 
 2. Go to Vercel → your project → **Settings** → **Environment Variables**
@@ -212,13 +222,16 @@ node -e "console.log(require('bcryptjs').hashSync('NEW_PASSWORD', 12))"
 ## Troubleshooting
 
 **"API is not configured" error on the website:**
-- You forgot an environment variable. Go to Vercel → Settings → Environment Variables and make sure all 5 are set.
+- You forgot an environment variable. Go to Vercel → Settings → Environment Variables and make sure all 6 are set.
+
+**Login returns 403 Forbidden:**
+- Your `CORS_ORIGIN` doesn't match your website URL. Make sure it's set to `https://YOUR_PROJECT.vercel.app` (with `https://` and no trailing slash).
+
+**Login returns 401 Invalid credentials:**
+- Your `OWNER_PASSWORD_HASH` doesn't match your password. Regenerate it with the node command in Step 5 and update the env var.
 
 **Calendar shows no dates / always available:**
 - Check that your Supabase table was created correctly. Go to Table Editor → `availability` and verify the row exists.
-
-**Owner login says "Invalid credentials":**
-- Double-check that `OWNER_PASSWORD_HASH` matches your password. The hash must start with `$2a$` or `$2b$`.
 
 **Deployment fails:**
 - Check the build logs in Vercel. The most common issue is a missing environment variable.
@@ -229,9 +242,9 @@ node -e "console.log(require('bcryptjs').hashSync('NEW_PASSWORD', 12))"
 
 | Variable | Where to Get It | Required |
 |----------|----------------|----------|
-| `SUPABASE_URL` | Supabase → Settings → API → Project URL | Yes |
-| `SUPABASE_SERVICE_KEY` | Supabase → Settings → API → Service Role Key | Yes |
+| `SUPABASE_URL` | Supabase project page → Project URL | Yes |
+| `SUPABASE_SERVICE_KEY` | Supabase → Settings → API keys → Secret key | Yes |
 | `OWNER_PASSWORD_HASH` | Generated with bcrypt (see Step 5) | Yes |
 | `JWT_SECRET` | Generated with `openssl rand -base64 48` | Yes |
 | `CSRF_SECRET` | Generated with `openssl rand -base64 48` | Yes |
-| `CORS_ORIGIN` | Your website URL (auto-set by Vercel) | No |
+| `CORS_ORIGIN` | `https://YOUR_PROJECT.vercel.app` | Yes |

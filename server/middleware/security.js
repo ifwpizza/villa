@@ -1,6 +1,6 @@
 import helmet from 'helmet';
 import cors from 'cors';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import { config } from '../env.js';
 
 export function applySecurityMiddleware(app) {
@@ -70,7 +70,7 @@ export function applySecurityMiddleware(app) {
     legacyHeaders: false,
     message: { error: 'Too many requests. Please try again later.' },
     keyGenerator: (req) => {
-      return req.ip + ':' + (req.path || '');
+      return ipKeyGenerator(req) + ':' + (req.path || '');
     },
   });
 
