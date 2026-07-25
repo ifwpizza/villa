@@ -54,6 +54,10 @@ export function applySecurityMiddleware(app) {
         if (config.corsOrigins.includes(origin)) {
           return callback(null, true);
         }
+        const host = config.trustedHost;
+        if (host && origin === `https://${host}`) {
+          return callback(null, true);
+        }
         return callback(new Error('Not allowed by CORS'));
       },
       credentials: true,

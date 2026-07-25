@@ -73,6 +73,7 @@ export const config = {
     .split(',')
     .map((o) => o.trim())
     .filter(Boolean),
+  trustedHost: process.env.VERCEL_URL || process.env.CORS_HOST || '',
   cookieSecure: process.env.COOKIE_SECURE === 'true' || isProduction,
   trustProxy: process.env.TRUST_PROXY === 'true' || isProduction || onVercel,
 };
