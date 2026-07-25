@@ -1,67 +1,39 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { supabase } from './supabase.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const DATA_FILE = path.join(__dirname, 'data', 'availability.json');
-const BLOB_PATHNAME = 'availability.json';
-
-function ensureLocalDataFile() {
-  if (process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL) {
-    return;
-  }
-  if (!fs.existsSync(path.dirname(DATA_FILE))) {
-    fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-  }
-  if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, JSON.stringify({ bookedDates: [] }, null, 2));
-  }
-}
+const TABLE = 'availability';
+const ROW_ID = 1;
 
 export async function readAvailability() {
-  ensureLocalDataFile();
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('booked_dates')
+    .eq('id', ROW_ID)
+    .single();
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const { list } = await import('@vercel/blob');
-    const { blobs } = await list({ prefix: BLOB_PATHNAME, limit: 1 });
-    if (blobs.length === 0) {
+  if (error) {
+    if (error.code === 'PGRST116') {
+      await seedAvailability();
       return { bookedDates: [] };
     }
-    const res = await fetch(blobs[0].url);
-    if (!res.ok) {
-      return { bookedDates: [] };
-    }
-    return res.json();
+    throw error;
   }
 
-  if (process.env.VERCEL) {
-    console.warn('[storage] Set BLOB_READ_WRITE_TOKEN on Vercel for persistent availability.');
-    return { bookedDates: [] };
-  }
-
-  const raw = fs.readFileSync(DATA_FILE, 'utf-8');
-  return JSON.parse(raw);
+  return { bookedDates: data.booked_dates ?? [] };
 }
 
 export async function writeAvailability(data) {
-  ensureLocalDataFile();
+  const { error } = await supabase
+    .from(TABLE)
+    .upsert(
+      { id: ROW_ID, booked_dates: data.bookedDates, updated_at: new Date().toISOString() },
+      { onConflict: 'id' }
+    );
 
-  if (process.env.BLOB_READ_WRITE_TOKEN) {
-    const { put } = await import('@vercel/blob');
-    await put(BLOB_PATHNAME, JSON.stringify(data), {
-      access: 'public',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      contentType: 'application/json',
-    });
-    return;
-  }
+  if (error) throw error;
+}
 
-  if (process.env.VERCEL) {
-    throw new Error('Availability storage is not configured (BLOB_READ_WRITE_TOKEN)');
-  }
-
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+async function seedAvailability() {
+  await supabase
+    .from(TABLE)
+    .upsert({ id: ROW_ID, booked_dates: [] }, { onConflict: 'id' });
 }

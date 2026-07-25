@@ -37,8 +37,8 @@ export function authenticateToken(req, res, next) {
     }
     req.user = decoded;
     next();
-  } catch {
-    logSecurityEvent('auth_invalid_token', { ip: req.ip, path: req.path });
+  } catch (err) {
+    logSecurityEvent('auth_invalid_token', { ip: req.ip, path: req.path, error: err.name });
     return res.status(403).json({ error: 'Invalid or expired session' });
   }
 }

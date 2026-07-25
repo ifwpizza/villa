@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { config, ENV_FILE } from './env.js';
+import { config } from './env.js';
 import { applySecurityMiddleware, loginLimiter } from './middleware/security.js';
 import {
   authenticateToken,
@@ -21,29 +21,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const MAX_BOOKED_DATES = 2000;
-
-let passwordHash = null;
-
-async function initPasswordHash() {
-  if (process.env.OWNER_PASSWORD_HASH) {
-    passwordHash = process.env.OWNER_PASSWORD_HASH;
-    return;
-  }
-  if (process.env.OWNER_PASSWORD && fs.existsSync(ENV_FILE)) {
-    const hash = await bcrypt.hash(process.env.OWNER_PASSWORD, 12);
-    passwordHash = hash;
-    let envContent = fs.readFileSync(ENV_FILE, 'utf-8');
-    envContent = envContent.replace(/OWNER_PASSWORD=.*/, `OWNER_PASSWORD_HASH=${hash}`);
-    envContent = envContent.replace(/# Owner password:.*\n?/, '');
-    envContent = envContent.replace(/# Hash will be generated.*\n?/, '');
-    fs.writeFileSync(ENV_FILE, envContent);
-    console.log('✅ Owner password hashed; raw OWNER_PASSWORD removed from .env');
-    return;
-  }
-  throw new Error(
-    'OWNER_PASSWORD_HASH must be set in environment (required on Vercel; copy from local .env)'
-  );
-}
 
 function isValidCalendarDate(dateStr) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return false;
@@ -81,7 +58,11 @@ export function createApp() {
 }
 
 async function buildApp() {
-  await initPasswordHash();
+  if (!process.env.OWNER_PASSWORD_HASH) {
+    throw new Error(
+      'OWNER_PASSWORD_HASH must be set in environment. Generate with: node -e "require(\'bcryptjs\').hashSync(\'your-password\', 12)" | xargs -I {} echo OWNER_PASSWORD_HASH={}'
+    );
+  }
 
   const app = express();
 
@@ -113,7 +94,7 @@ async function buildApp() {
     }
 
     try {
-      const match = await bcrypt.compare(password, passwordHash);
+      const match = await bcrypt.compare(password, process.env.OWNER_PASSWORD_HASH);
       if (!match) {
         logSecurityEvent('login_failed', { ip: req.ip });
         return res.status(401).json({ error: 'Invalid credentials' });
@@ -125,6 +106,7 @@ async function buildApp() {
       res.json({ authenticated: true });
     } catch (err) {
       console.error('Login error:', err.message);
+      logSecurityEvent('login_error', { ip: req.ip, error: 'internal_error' });
       res.status(500).json({ error: 'Authentication failed' });
     }
   });
@@ -151,9 +133,11 @@ async function buildApp() {
       try {
         const uniqueDates = [...new Set(req.body.bookedDates)].sort();
         await writeAvailability({ bookedDates: uniqueDates });
+        logSecurityEvent('availability_updated', { ip: req.ip, count: uniqueDates.length });
         res.json({ success: true, bookedDates: uniqueDates });
       } catch (err) {
         console.error('Error writing availability:', err.message);
+        logSecurityEvent('availability_update_failed', { ip: req.ip, error: 'internal_error' });
         res.status(500).json({ error: 'Failed to update availability' });
       }
     }

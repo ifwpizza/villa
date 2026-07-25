@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('[api] bootstrap failed:', err.message);
     res.status(503).json({
-      error: 'API is not configured. Set JWT_SECRET, CSRF_SECRET, and OWNER_PASSWORD_HASH in Vercel.',
+      error: 'API is not configured. Set JWT_SECRET, CSRF_SECRET, OWNER_PASSWORD_HASH, SUPABASE_URL, and SUPABASE_SERVICE_KEY in Vercel.',
     });
   }
 }

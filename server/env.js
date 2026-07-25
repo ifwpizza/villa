@@ -1,16 +1,10 @@
 import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export const ENV_FILE = path.resolve(__dirname, '..', '.env');
 const onVercel = Boolean(process.env.VERCEL);
 
-if (fs.existsSync(ENV_FILE)) {
-  dotenv.config({ path: ENV_FILE });
+if (fs.existsSync('.env')) {
+  dotenv.config();
 } else if (!onVercel) {
   console.error(
     '❌ Missing .env file. Copy .env.example to .env and set strong secrets before starting the server.'
@@ -65,12 +59,16 @@ function resolveCsrfSecret(jwtSecret) {
 }
 
 const jwtSecret = requireSecret('JWT_SECRET', 32);
+const supabaseUrl = requireSecret('SUPABASE_URL', 1);
+const supabaseServiceKey = requireSecret('SUPABASE_SERVICE_KEY', 1);
 
 export const config = {
   isProduction,
   port: Number(process.env.PORT) || 3001,
   jwtSecret,
   csrfSecret: resolveCsrfSecret(jwtSecret),
+  supabaseUrl,
+  supabaseServiceKey,
   corsOrigins: defaultCorsOrigins()
     .split(',')
     .map((o) => o.trim())

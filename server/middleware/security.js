@@ -10,6 +10,13 @@ export function applySecurityMiddleware(app) {
 
   app.disable('x-powered-by');
 
+  // Add request ID for tracing
+  app.use((req, res, next) => {
+    req.id = crypto.randomUUID();
+    res.setHeader('X-Request-ID', req.id);
+    next();
+  });
+
   app.use(
     helmet({
       frameguard: { action: 'deny' },
@@ -25,12 +32,16 @@ export function applySecurityMiddleware(app) {
           frameAncestors: ["'none'"],
           baseUri: ["'self'"],
           formAction: ["'self'"],
+          upgradeInsecureRequests: config.isProduction ? [] : null,
         },
       },
       crossOriginEmbedderPolicy: false,
       hsts: config.isProduction
         ? { maxAge: 31536000, includeSubDomains: true, preload: true }
         : false,
+      referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
+      xssFilter: true,
+      noSniff: true,
     })
   );
 
@@ -48,6 +59,7 @@ export function applySecurityMiddleware(app) {
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token'],
+      maxAge: 86400, // 24 hours
     })
   );
 
@@ -57,6 +69,9 @@ export function applySecurityMiddleware(app) {
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests. Please try again later.' },
+    keyGenerator: (req) => {
+      return req.ip + ':' + (req.path || '');
+    },
   });
 
   app.use('/api', apiLimiter);
