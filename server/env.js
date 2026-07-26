@@ -18,8 +18,15 @@ function defaultCorsOrigins() {
   if (process.env.CORS_ORIGIN) {
     return process.env.CORS_ORIGIN;
   }
+  const origins = [];
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    origins.push(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`);
+  }
   if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
+    origins.push(`https://${process.env.VERCEL_URL}`);
+  }
+  if (origins.length > 0) {
+    return origins.join(',');
   }
   return 'http://localhost:5173';
 }

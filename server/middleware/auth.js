@@ -18,7 +18,7 @@ const csrf = doubleCsrf({
     req.cookies?.[AUTH_COOKIE] || req.ip || 'anonymous',
 });
 
-export const { generateToken: generateCsrfToken, doubleCsrfProtection } = csrf;
+export const { generateCsrfToken, doubleCsrfProtection } = csrf;
 
 export function authenticateToken(req, res, next) {
   const bearer = req.headers.authorization?.split(' ')[1];
