@@ -128,9 +128,9 @@ export default function BookingSystem() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-10 items-start">
             {/* Calendar Panel — glass */}
-            <div className="lg:col-span-7 glass-dark p-6 md:p-10">
+            <div className="min-w-0 lg:col-span-7 glass-dark p-5 sm:p-6 md:p-8">
               {/* Month nav */}
               <div className="flex justify-between items-center mb-8">
                 <button onClick={() => { if (curMonth === 0) { setCurMonth(11); setCurYear(p => p - 1); } else setCurMonth(p => p - 1); }}
@@ -178,41 +178,41 @@ export default function BookingSystem() {
               </div>
 
               {/* Date selectors */}
-              <div className="grid grid-cols-2 gap-4 mt-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-8">
                 <button onClick={() => setSelecting('in')}
-                  className={`p-4 text-left transition-all duration-300 ${selecting === 'in' ? 'bg-white/5 border-[var(--color-champagne)]' : 'border-white/8'}`}
+                  className={`min-w-0 p-4 text-left transition-all duration-300 ${selecting === 'in' ? 'bg-white/5 border-[var(--color-champagne)]' : 'border-white/8'}`}
                   style={{ border: '1px solid' }}>
                   <p className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)] mb-1" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Check-in</p>
-                  <p className="text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
+                  <p className="truncate text-base text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
                     {checkIn ? fmt(checkIn) : 'Select date'}
                   </p>
                 </button>
                 <button onClick={() => setSelecting('out')}
-                  className={`p-4 text-left transition-all duration-300 ${selecting === 'out' ? 'bg-white/5 border-[var(--color-champagne)]' : 'border-white/8'}`}
+                  className={`min-w-0 p-4 text-left transition-all duration-300 ${selecting === 'out' ? 'bg-white/5 border-[var(--color-champagne)]' : 'border-white/8'}`}
                   style={{ border: '1px solid' }}>
                   <p className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)] mb-1" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Check-out</p>
-                  <p className="text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
+                  <p className="truncate text-base text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
                     {checkOut ? fmt(checkOut) : 'Select date'}
                   </p>
                 </button>
               </div>
 
               {/* Guest selectors */}
-              <div className="grid grid-cols-2 gap-4 mt-4">
-                <div className="p-4" style={{ border: '1px solid rgba(255,255,255,0.05)' }}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                <div className="p-4" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
                   <p className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)] mb-3" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Adults</p>
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => setAdults(p => Math.max(1,p-1))} className="w-8 h-8 text-[var(--color-ash)] hover:text-[var(--color-champagne)] transition-colors text-lg" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>−</button>
-                    <span className="text-lg text-[var(--color-warm-white)] w-6 text-center" style={{ fontFamily: 'var(--font-heading)' }}>{adults}</span>
-                    <button onClick={() => setAdults(p => Math.min(8,p+1))} className="w-8 h-8 text-[var(--color-ash)] hover:text-[var(--color-champagne)] transition-colors text-lg" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>+</button>
+                  <div className="flex max-w-36 items-center justify-between gap-3">
+                    <button onClick={() => setAdults(p => Math.max(1,p-1))} className="h-9 w-9 shrink-0 text-lg text-[var(--color-ash)] transition-colors hover:text-[var(--color-champagne)]" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>−</button>
+                    <span className="w-8 text-center text-lg text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>{adults}</span>
+                    <button onClick={() => setAdults(p => Math.min(8,p+1))} className="h-9 w-9 shrink-0 text-lg text-[var(--color-ash)] transition-colors hover:text-[var(--color-champagne)]" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>+</button>
                   </div>
                 </div>
-                <div className="p-4" style={{ border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div className="p-4" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
                   <p className="text-[0.55rem] tracking-[0.25em] uppercase text-[var(--color-ash)] mb-3" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Children</p>
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => setChildren(p => Math.max(0,p-1))} className="w-8 h-8 text-[var(--color-ash)] hover:text-[var(--color-champagne)] transition-colors text-lg" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>−</button>
-                    <span className="text-lg text-[var(--color-warm-white)] w-6 text-center" style={{ fontFamily: 'var(--font-heading)' }}>{children}</span>
-                    <button onClick={() => setChildren(p => Math.min(3,p+1))} className="w-8 h-8 text-[var(--color-ash)] hover:text-[var(--color-champagne)] transition-colors text-lg" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>+</button>
+                  <div className="flex max-w-36 items-center justify-between gap-3">
+                    <button onClick={() => setChildren(p => Math.max(0,p-1))} className="h-9 w-9 shrink-0 text-lg text-[var(--color-ash)] transition-colors hover:text-[var(--color-champagne)]" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>−</button>
+                    <span className="w-8 text-center text-lg text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>{children}</span>
+                    <button onClick={() => setChildren(p => Math.min(3,p+1))} className="h-9 w-9 shrink-0 text-lg text-[var(--color-ash)] transition-colors hover:text-[var(--color-champagne)]" style={{ border: '1px solid rgba(255,255,255,0.15)' }}>+</button>
                   </div>
                 </div>
               </div>
@@ -225,38 +225,42 @@ export default function BookingSystem() {
             </div>
 
             {/* Floating Summary Panel — glass */}
-            <div className="lg:col-span-5">
-              <div className="glass-dark p-10 md:p-12 sticky top-28">
+            <div className="min-w-0 lg:col-span-5">
+              <div className="sticky top-28 glass-dark">
+                <div
+                  className="relative z-10"
+                  style={{ padding: 'clamp(1.5rem, 3vw, 3rem)' }}
+                >
                 <p className="eyebrow mb-8">Booking Summary</p>
 
-                <div className="flex flex-col gap-6 text-sm mb-8" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                  <div className="flex justify-between text-[var(--color-ash)]">
+                <div className="flex flex-col gap-5 text-lg mb-8" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-[var(--color-ash-light)]">
                     <span>Check-in</span>
-                    <span className="text-[var(--color-warm-white)]">{checkIn ? fmt(checkIn) : '—'}</span>
+                    <span className="whitespace-nowrap text-right text-[var(--color-warm-white)]" style={{ fontWeight: 600 }}>{checkIn ? fmt(checkIn) : '—'}</span>
                   </div>
-                  <div className="flex justify-between text-[var(--color-ash)]">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-[var(--color-ash-light)]">
                     <span>Check-out</span>
-                    <span className="text-[var(--color-warm-white)]">{checkOut ? fmt(checkOut) : '—'}</span>
+                    <span className="whitespace-nowrap text-right text-[var(--color-warm-white)]" style={{ fontWeight: 600 }}>{checkOut ? fmt(checkOut) : '—'}</span>
                   </div>
-                  <div className="flex justify-between text-[var(--color-ash)]">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-[var(--color-ash-light)]">
                     <span>Guests</span>
-                    <span className="text-[var(--color-warm-white)]">{adults} Adults{children > 0 ? `, ${children} Children` : ''}</span>
+                    <span className="whitespace-nowrap text-right text-[var(--color-warm-white)]" style={{ fontWeight: 600 }}>{adults} Adults{children > 0 ? `, ${children} Children` : ''}</span>
                   </div>
 
                   <div className="gold-divider-wide my-2" />
 
-                  <div className="flex justify-between text-[var(--color-ash)]">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-[var(--color-ash-light)]">
                     <span>Nights</span>
-                    <span className="text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem' }}>{nights || '—'}</span>
+                    <span className="text-right text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', fontWeight: 700 }}>{nights || '—'}</span>
                   </div>
-                  <div className="flex justify-between text-[var(--color-ash)]">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-[var(--color-ash-light)]">
                     <span>Subtotal</span>
-                    <span className="text-[var(--color-warm-white)]">{basePrice > 0 ? `₹${basePrice.toLocaleString('en-IN')}` : '—'}</span>
+                    <span className="whitespace-nowrap text-right text-[var(--color-warm-white)]" style={{ fontWeight: 600 }}>{basePrice > 0 ? `₹${basePrice.toLocaleString('en-IN')}` : '—'}</span>
                   </div>
                   {discPct > 0 && (
-                    <div className="flex justify-between text-emerald-400/80">
+                    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-6 text-emerald-300">
                       <span>Discount ({discPct}%)</span>
-                      <span>− ₹{((basePrice * discPct) / 100).toLocaleString('en-IN')}</span>
+                      <span className="whitespace-nowrap text-right">− ₹{((basePrice * discPct) / 100).toLocaleString('en-IN')}</span>
                     </div>
                   )}
                 </div>
@@ -264,14 +268,15 @@ export default function BookingSystem() {
                 <div className="gold-divider-wide mb-6" />
 
                 {/* Animated Price */}
-                <div className="flex justify-between items-baseline mb-12">
-                  <span className="text-[0.6rem] tracking-[0.3em] uppercase text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>Total</span>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-6 mb-10">
+                  <span className="text-[0.75rem] tracking-[0.22em] uppercase text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>Total</span>
                   <motion.span
                     key={finalPrice}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.4 }}
-                  style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', background: 'linear-gradient(135deg, #A8893A 0%, #D4AF37 40%, #F5E6A3 60%, #C9A74A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
+                  className="whitespace-nowrap text-right"
+                  style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', background: 'linear-gradient(135deg, #A8893A 0%, #D4AF37 40%, #F5E6A3 60%, #C9A74A 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}
                   >
                     {finalPrice > 0 ? `₹${finalPrice.toLocaleString('en-IN')}` : '—'}
                   </motion.span>
@@ -280,7 +285,7 @@ export default function BookingSystem() {
                 <button
                   disabled={!checkIn || !checkOut || !!error || loading}
                   onClick={handleSubmit}
-                  className="w-full py-5 text-[0.65rem] tracking-[0.35em] uppercase transition-all duration-500 disabled:opacity-20 disabled:cursor-not-allowed"
+                  className="w-full px-4 py-5 text-[0.7rem] tracking-[0.22em] uppercase transition-all duration-500 disabled:opacity-20 disabled:cursor-not-allowed"
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontWeight: 600,
@@ -294,9 +299,10 @@ export default function BookingSystem() {
                   {loading ? 'Processing...' : 'Confirm Reservation'}
                 </button>
 
-                <p className="text-[0.5rem] text-center text-[var(--color-ash)] mt-4 tracking-[0.15em]" style={{ fontFamily: 'var(--font-body)' }}>
+                <p className="mt-4 text-center text-[0.6rem] tracking-[0.12em] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)' }}>
                   Reservation confirmed via WhatsApp
                 </p>
+                </div>
               </div>
             </div>
           </div>

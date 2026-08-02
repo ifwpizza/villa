@@ -33,7 +33,11 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-baseline gap-1.5">
+          <a
+            href="#home"
+            className="flex items-baseline gap-1.5"
+            style={{ transform: 'translateX(4rem)' }}
+          >
             <span
               className="text-2xl lg:text-3xl tracking-[0.08em]"
               style={{

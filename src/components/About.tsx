@@ -112,14 +112,14 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Secondary Image Row — two offset images */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        {/* Secondary row follows the same 7 / 5-column split as the row above. */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 mt-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="overflow-hidden image-reveal md:mt-16"
+            className="overflow-hidden image-reveal lg:col-span-7"
           >
             <img
               src="/images/balcony-mountain-view.jpeg"
@@ -133,7 +133,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="overflow-hidden image-reveal"
+            className="overflow-hidden image-reveal lg:col-span-5"
           >
             <img
               src="/images/balcony-sitout.jpeg"

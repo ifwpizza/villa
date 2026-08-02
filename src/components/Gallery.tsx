@@ -5,7 +5,7 @@ const galleryItems = [
   { src: '/images/hero-sunset-pool.jpeg', title: 'Sunset & Pool', tall: true },
   { src: '/images/living-room-day.jpeg', title: 'Living Room' },
   { src: '/images/lawn-pool-mountain.jpeg', title: 'Pool & Mountains', tall: true },
-  { src: '/images/entrance-hallway.jpeg', title: 'Grand Entrance' },
+  { src: '/images/entrance-hallway.jpeg', title: 'Corridor Area' },
   { src: '/images/second-bedroom.jpeg', title: 'Second Bedroom' },
   { src: '/images/community-pool-mountains.jpeg', title: 'Community Vista', tall: true },
   { src: '/images/kitchen-full.jpeg', title: 'Designer Kitchen' },

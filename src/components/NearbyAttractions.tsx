@@ -45,7 +45,10 @@ export default function NearbyAttractions() {
         {/* Header */}
         <div className="mb-16">
           <p className="eyebrow-dark mb-5">Surroundings</p>
-          <h2 className="heading-luxury" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
+          <h2
+            className="text-[var(--color-noir)]"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 400, fontSize: 'clamp(2rem, 4vw, 3.5rem)', lineHeight: 1.2 }}
+          >
             What's Nearby
           </h2>
         </div>
@@ -73,28 +76,28 @@ export default function NearbyAttractions() {
               </div>
 
               {/* Content */}
-              <div className="md:col-span-8 p-8 md:p-10 flex flex-col justify-center bg-[var(--color-warm-white)] group-hover:bg-white transition-colors duration-500">
-                <div className="flex items-center justify-between mb-4">
+              <div className="md:col-span-8 p-8 md:p-10 flex flex-col items-center justify-center text-center bg-[var(--color-warm-white)] group-hover:bg-white transition-colors duration-500">
+                <div className="relative flex w-full items-center justify-center mb-4">
                   <h3
-                    className="text-xl md:text-2xl"
+                    className="text-center text-2xl md:text-3xl leading-tight"
                     style={{
-                      fontFamily: 'var(--font-heading)',
-                      fontWeight: 400,
+                      fontFamily: 'var(--font-body)',
+                      fontWeight: 600,
                       color: 'var(--color-noir)',
                     }}
                   >
                     {a.name}
                   </h3>
                   <span
-                    className="text-[0.55rem] tracking-[0.2em] uppercase text-[var(--color-ash)] hidden md:block"
+                    className="absolute right-0 text-xs tracking-[0.12em] uppercase text-[var(--color-ash)] hidden md:block"
                     style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
                   >
                     {a.time}
                   </span>
                 </div>
                 <p
-                  className="text-sm text-[var(--color-ash)] leading-relaxed"
-                  style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
+                  className="max-w-2xl text-base md:text-lg text-[var(--color-ash)] leading-relaxed"
+                  style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}
                 >
                   {a.description}
                 </p>

@@ -28,11 +28,11 @@ const minimalAmenities = [
   'High-Speed WiFi',
   'BBQ Setup',
   'Premium Sound System',
-  'Double-Door Refrigerator',
+  'Fridge',
   'Microwave Oven',
-  'Water Purifier (RO)',
+  'Water Purifier',
   'Gas Stove & Free Gas',
-  'Complete Kitchen Utensils',
+  'Kitchen Utensils',
   'Power Backup',
   '24/7 Water Supply',
   'Have Parking Area',
@@ -43,7 +43,7 @@ export default function Amenities() {
     <section id="amenities" className="section-royal-dark">
       {/* Header */}
       <div className="section-luxury pb-0">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-16">
           <div>
             <p className="eyebrow mb-5">Curated Amenities</p>
             <h2 className="heading-luxury-light" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.5rem)' }}>
@@ -71,7 +71,7 @@ export default function Amenities() {
       </div>
 
       {/* Large Photography Grid with Hover Reveal */}
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-[clamp(1.5rem,5vw,4rem)] md:max-w-none md:grid-cols-2 md:gap-0 md:px-0">
         {immersiveAmenities.map((amenity, i) => (
           <motion.div
             key={i}
@@ -79,7 +79,7 @@ export default function Amenities() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: i * 0.1 }}
-            className="relative h-[50vh] md:h-[70vh] overflow-hidden group cursor-default image-reveal"
+            className="relative aspect-[4/5] overflow-hidden rounded-[1.35rem] group cursor-default image-reveal md:h-[70vh] md:aspect-auto md:rounded-none"
           >
             <img
               src={amenity.image}
@@ -102,7 +102,7 @@ export default function Amenities() {
             }} />
 
             {/* Content */}
-            <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+            <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-12">
               <div
                 className="mb-4 transition-all duration-700 group-hover:w-16"
                 style={{
@@ -113,13 +113,13 @@ export default function Amenities() {
                 }}
               />
               <h3
-                className="text-white text-xl md:text-2xl mb-2 transition-all duration-500"
+                className="text-white text-2xl md:text-2xl mb-2 transition-all duration-500"
                 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}
               >
                 {amenity.title}
               </h3>
               <p
-                className="text-white/0 group-hover:text-white/70 transition-all duration-700 text-sm max-w-sm transform translate-y-4 group-hover:translate-y-0"
+                className="text-white/75 md:text-white/0 group-hover:text-white/70 transition-all duration-700 text-sm max-w-sm md:translate-y-4 md:group-hover:translate-y-0"
                 style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}
               >
                 {amenity.subtitle}

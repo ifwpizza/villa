@@ -34,7 +34,10 @@ export default function VillaExperience() {
         }} />
 
         {/* Caption & Nav */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-10">
+        <div
+          className="absolute bottom-0 left-0 right-0 z-10"
+          style={{ padding: 'clamp(2rem, 5vw, 5rem)' }}
+        >
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-end justify-between gap-8">
             <div>
               <p className="eyebrow mb-4">The Spaces</p>
@@ -79,16 +82,16 @@ export default function VillaExperience() {
       </div>
 
       {/* Details Section — dark background */}
-      <div className="section-luxury">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+      <div className="flex min-h-[70vh] items-center" style={{ padding: 'clamp(5rem, 9vw, 9rem) clamp(2rem, 5vw, 5rem)' }}>
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-20 items-start">
 
             {/* Left: Villa Details */}
-            <div className="lg:col-span-5">
+            <div className="min-w-0">
               <div className="flex items-center gap-3 mb-6">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span
-                  className="text-[0.6rem] tracking-[0.3em] uppercase text-emerald-400"
+                  className="text-[0.7rem] tracking-[0.25em] uppercase text-emerald-300"
                   style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}
                 >
                   Available for Bookings
@@ -97,31 +100,31 @@ export default function VillaExperience() {
 
               <h3
                 className="heading-luxury-light mb-3"
-                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)' }}
+                style={{ fontSize: 'clamp(2.25rem, 3vw, 3rem)', fontWeight: 400, letterSpacing: '0.02em' }}
               >
                 SaGa Montana
               </h3>
 
               <p
-                className="text-[0.7rem] tracking-[0.15em] text-[var(--color-ash)] mb-10"
+                className="text-sm tracking-[0.08em] leading-relaxed text-[var(--color-stone-dark)] mb-9"
                 style={{ fontFamily: 'var(--font-body)' }}
               >
                 Yash Villas, Dahivali · Near Ekvira Temple · Karla, Lonavala
               </p>
 
               {/* Minimal spec list */}
-              <div className="flex flex-col gap-6 mb-10">
+              <div className="flex flex-col gap-5 mb-9">
                 {[
                   ['Configuration', '2 BHK Villa'],
                   ['Occupancy', 'Up to 8 Guests'],
                   ['Check-in', '12:00 PM'],
                   ['Check-out', '11:00 AM'],
                 ].map(([label, value], i) => (
-                  <div key={i} className="flex justify-between items-baseline border-b border-white/5 pb-4">
-                    <span className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                  <div key={i} className="flex justify-between gap-6 items-baseline border-b border-white/15 pb-4">
+                    <span className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--color-stone-dark)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                       {label}
                     </span>
-                    <span className="text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                    <span className="shrink-0 text-base text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
                       {value}
                     </span>
                   </div>
@@ -130,66 +133,66 @@ export default function VillaExperience() {
 
               {/* House Rules — minimal */}
               <div>
-                <p className="text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-ash-light)] mb-4" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
+                <p className="text-[0.7rem] tracking-[0.2em] uppercase text-[var(--color-stone-dark)] mb-4" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
                   House Rules
                 </p>
-                <div className="grid grid-cols-2 gap-3 text-[0.7rem] text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                  <span>· No Pets Allowed</span>
-                  <span>· No Illegal Activities</span>
-                  <span>· Respect the Property</span>
-                  <span>· Maintain Cleanliness</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-4 text-sm text-[var(--color-stone-dark)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
+                  <span>• No pets allowed</span>
+                  <span>• No illegal activities</span>
+                  <span>• Respect the property</span>
+                  <span>• Maintain cleanliness</span>
                 </div>
               </div>
             </div>
 
             {/* Right: Elegant Pricing Table */}
-            <div className="lg:col-span-7 lg:pl-16">
+            <div className="min-w-0 flex flex-col items-center">
               <p className="eyebrow mb-8">Tariff</p>
 
               {/* Pricing Table */}
-              <div className="border border-white/8">
+              <div className="w-full max-w-3xl border border-white/15 bg-black/10">
                 {/* Header */}
-                <div className="flex border-b border-white/8 px-8 py-5" style={{ background: 'linear-gradient(90deg, rgba(201,167,74,0.08) 0%, rgba(212,175,55,0.04) 100%)' }}>
-                  <span className="flex-1 text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
+                <div className="grid grid-cols-[1.35fr_1fr_1fr] items-center border-b border-white/15 px-6 md:px-8 py-4" style={{ background: 'linear-gradient(90deg, rgba(201,167,74,0.16) 0%, rgba(212,175,55,0.07) 100%)' }}>
+                  <span className="text-center text-[0.72rem] tracking-[0.2em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>
                     Period
                   </span>
-                  <span className="w-32 text-right text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
+                  <span className="text-center text-[0.72rem] tracking-[0.2em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>
                     Rack Rate
                   </span>
-                  <span className="w-40 text-right text-[0.6rem] tracking-[0.25em] uppercase text-[var(--color-champagne)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>
+                  <span className="text-center text-[0.72rem] tracking-[0.2em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 700 }}>
                     Nightly Rate
                   </span>
                 </div>
 
                 {/* Row 1 */}
-                <div className="flex items-baseline border-b border-white/5 px-8 py-6">
-                  <span className="flex-1 text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
+                <div className="grid grid-cols-[1.35fr_1fr_1fr] items-center border-b border-white/10 px-6 md:px-8 py-5">
+                  <span className="text-center text-xl text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
                     Sunday – Friday
                   </span>
-                  <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                  <span className="text-center text-lg text-[var(--color-stone-dark)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
                     ₹10,000
                   </span>
-                  <span className="w-40 text-right text-xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, background: 'linear-gradient(135deg, #A8893A, #D4AF37, #C9A74A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  <span className="text-center text-2xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-gold-royal)' }}>
                     ₹8,000
                   </span>
                 </div>
 
                 {/* Row 2 */}
-                <div className="flex items-baseline border-b border-white/5 px-8 py-6">
-                  <span className="flex-1 text-sm text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 400 }}>
+                <div className="grid grid-cols-[1.35fr_1fr_1fr] items-center border-b border-white/10 px-6 md:px-8 py-5">
+                  <span className="text-center text-xl text-[var(--color-warm-white)]" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}>
                     Saturday
                   </span>
-                  <span className="w-32 text-right text-sm text-[var(--color-ash)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                  <span className="text-center text-lg text-[var(--color-stone-dark)] line-through" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
                     ₹15,000
                   </span>
-                  <span className="w-40 text-right text-xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, background: 'linear-gradient(135deg, #A8893A, #D4AF37, #C9A74A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                  <span className="text-center text-2xl" style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, color: 'var(--color-gold-royal)' }}>
                     ₹12,000
                   </span>
                 </div>
 
                 {/* Footer note */}
-                <div className="px-8 py-4" style={{ background: 'rgba(201,167,74,0.03)' }}>
-                  <span className="text-[0.6rem] tracking-[0.15em] text-[var(--color-ash)]" style={{ fontFamily: 'var(--font-body)' }}>
+                <div className="px-6 md:px-8 py-4 text-center" style={{ background: 'rgba(201,167,74,0.08)' }}>
+                  <span className="text-sm tracking-[0.08em] text-[var(--color-stone-dark)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 500 }}>
                     20% standard discount applied · Group discounts available for 6+ guests
                   </span>
                 </div>
@@ -199,7 +202,7 @@ export default function VillaExperience() {
               <motion.a
                 href="#booking"
                 whileHover={{ scale: 1.01 }}
-                className="mt-10 block w-full text-center py-5 text-[0.65rem] tracking-[0.35em] uppercase text-[var(--color-warm-white)] transition-all duration-500 hover:bg-[var(--color-burgundy-dark)]"
+                className="mt-8 block w-full max-w-3xl text-center py-5 text-[0.75rem] tracking-[0.28em] uppercase text-[var(--color-warm-white)] transition-all duration-500 hover:bg-[var(--color-burgundy-dark)]"
                 style={{
                   fontFamily: 'var(--font-body)',
                   fontWeight: 600,

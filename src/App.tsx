@@ -12,6 +12,7 @@ import BookingSystem from './components/BookingSystem';
 import FloatingCTA from './components/FloatingCTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import WhatsAppChat from './components/WhatsAppChat';
 import OwnerLogin from './components/OwnerLogin';
 import OwnerPanel from './components/OwnerPanel';
 import { verifyOwnerSession, logoutOwner } from './lib/ownerApi';
@@ -144,6 +145,8 @@ function App() {
         <Contact />
         <Footer onOwnerLogin={() => setShowOwnerLogin(true)} />
       </motion.div>
+
+      <WhatsAppChat />
 
       {/* Owner Login Modal */}
       <AnimatePresence>
