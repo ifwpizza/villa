@@ -6,16 +6,17 @@ export default function Footer({ onOwnerLogin }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden text-[var(--color-warm-white)] section-royal-dark" style={{ padding: 'clamp(1.5rem, 3vw, 2.5rem) 0 clamp(2rem, 4vw, 3rem)' }}>
+    <footer className="relative overflow-hidden text-[var(--color-warm-white)] section-royal-dark pt-16 pb-12">
+      {/* Glow Effects */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--color-gold-royal)] to-transparent" />
-      <div className="pointer-events-none absolute left-1/2 top-0 h-28 w-[34rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(201,167,74,0.11),_transparent_70%)]" />
-      <div className="max-w-7xl mx-auto" style={{ padding: '0 clamp(1.5rem, 5vw, 4rem)' }}>
+      <div className="pointer-events-none absolute left-1/2 top-0 h-32 w-[40rem] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(201,167,74,0.12),_transparent_70%)]" />
 
-        {/* Royal wordmark */}
-        <div className="relative flex flex-col items-center text-center mb-36">
-          <a href="#home" className="inline-block hover:opacity-80 transition-opacity">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        {/* Brand Header */}
+        <div className="flex flex-col items-center text-center mb-12">
+          <a href="#home" className="inline-block group">
             <span
-              className="text-[3rem] md:text-[5rem] tracking-[0.05em] gold-shimmer-text"
+              className="block text-4xl md:text-6xl tracking-[0.08em] gold-shimmer-text"
               style={{
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 300,
@@ -25,69 +26,155 @@ export default function Footer({ onOwnerLogin }: FooterProps) {
               SaGa
             </span>
             <span
-              className="block text-[1.5rem] md:text-[2.5rem] tracking-[0.3em]"
+              className="block text-xl md:text-3xl tracking-[0.35em] text-[var(--color-warm-white)] group-hover:text-[var(--color-champagne)] transition-colors mt-1"
               style={{
                 fontFamily: 'var(--font-heading)',
                 fontWeight: 300,
-                color: 'var(--color-warm-white)',
                 lineHeight: 1,
-                marginTop: '0.2rem',
               }}
             >
               Montana
             </span>
           </a>
+
+          <p className="mt-4 text-sm text-[var(--color-ash-light)] max-w-lg leading-relaxed font-light">
+            An exclusive luxury villa sanctuary in Lonavala offering panoramic mountain views, private pool, and unmatched luxury hospitality.
+          </p>
+
+          <div className="gold-divider my-8" style={{ width: '5rem' }} />
         </div>
 
-        {/* Main Footer Links Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 mb-14 text-center">
+        {/* 4-Column Balanced Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-16">
           
-          {/* Address */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left gap-4 md:pl-0 md:pr-12 md:border-r md:border-[rgba(201,167,74,0.22)]">
-            <h4 className="text-[0.8rem] md:text-[0.85rem] tracking-[0.28em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>Location</h4>
-            <p className="text-sm md:text-base leading-[1.8] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
-              Yash Villas A1/2, Dahivali,<br />
-              Near Ekvira Temple, Karla,<br />
-              Lonavala, Maharashtra 410405
+          {/* Column 1: About */}
+          <div className="flex flex-col gap-4">
+            <h4
+              className="text-[0.75rem] tracking-[0.25em] uppercase text-[var(--color-champagne-light)] font-semibold"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              The Sanctuary
+            </h4>
+            <p className="text-sm text-[var(--color-ash-light)] leading-relaxed font-light">
+              Nestled amidst the serene Sahyadri mountains, SaGa Montana offers high-ceiling living spaces, private lawn, swimming pool, and 4 luxury bedrooms.
             </p>
+
+            <div className="inline-flex items-center gap-2 pt-2 text-xs text-[var(--color-champagne)]">
+              <span>★ 4.9/5 Guest Experience Rating</span>
+            </div>
           </div>
 
-          {/* Links */}
-          <div className="flex flex-col items-center text-center gap-4 md:px-12 md:border-r md:border-[rgba(201,167,74,0.22)]">
-            <h4 className="text-[0.8rem] md:text-[0.85rem] tracking-[0.28em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>Explore</h4>
-            <ul className="flex flex-col items-center gap-3 text-sm md:text-base text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
-              <li><a href="#villa" className="hover:text-[var(--color-champagne)] transition-colors">The Retreat</a></li>
-              <li><a href="#gallery" className="hover:text-[var(--color-champagne)] transition-colors">Gallery</a></li>
-              <li><a href="#amenities" className="hover:text-[var(--color-champagne)] transition-colors">Amenities</a></li>
-              <li><a href="#booking" className="hover:text-[var(--color-champagne)] transition-colors">Reservations</a></li>
+          {/* Column 2: Quick Links */}
+          <div className="flex flex-col gap-4">
+            <h4
+              className="text-[0.75rem] tracking-[0.25em] uppercase text-[var(--color-champagne-light)] font-semibold"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              Explore
+            </h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-[var(--color-ash-light)] font-light">
+              <li>
+                <a href="#villa" className="hover:text-[var(--color-champagne)] transition-colors inline-block">
+                  The Retreat
+                </a>
+              </li>
+              <li>
+                <a href="#gallery" className="hover:text-[var(--color-champagne)] transition-colors inline-block">
+                  Visual Gallery
+                </a>
+              </li>
+              <li>
+                <a href="#amenities" className="hover:text-[var(--color-champagne)] transition-colors inline-block">
+                  Luxury Amenities
+                </a>
+              </li>
+              <li>
+                <a href="#reviews" className="hover:text-[var(--color-champagne)] transition-colors inline-block">
+                  Guest Reviews
+                </a>
+              </li>
+              <li>
+                <a href="#booking" className="hover:text-[var(--color-champagne)] transition-colors inline-block">
+                  Book Reservations
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="flex flex-col items-center md:items-end text-center md:text-right gap-4 md:pl-12 md:pr-0">
-            <h4 className="text-[0.8rem] md:text-[0.85rem] tracking-[0.28em] uppercase text-[var(--color-champagne-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 600 }}>Contact</h4>
-            <p className="text-sm md:text-base leading-[1.8] text-[var(--color-ash-light)]" style={{ fontFamily: 'var(--font-body)', fontWeight: 400 }}>
-              sagamontana8@gmail.com<br />
-              +91 85919 94866
+          {/* Column 3: Location */}
+          <div className="flex flex-col gap-4">
+            <h4
+              className="text-[0.75rem] tracking-[0.25em] uppercase text-[var(--color-champagne-light)] font-semibold"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              Location
+            </h4>
+            <p className="text-sm text-[var(--color-ash-light)] leading-relaxed font-light">
+              SaGa Montana, Yash Villas A1/2,<br />
+              Dahivali, Near Ekvira Temple, Karla,<br />
+              Lonavala, Maharashtra 410405
             </p>
+            <a
+              href="https://maps.google.com/?q=SaGa+Montana+Lonavala"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-[var(--color-champagne)] hover:text-white transition-colors pt-1"
+            >
+              <span>📍 Open in Google Maps →</span>
+            </a>
+          </div>
+
+          {/* Column 4: Reservations & Contact */}
+          <div className="flex flex-col gap-4">
+            <h4
+              className="text-[0.75rem] tracking-[0.25em] uppercase text-[var(--color-champagne-light)] font-semibold"
+              style={{ fontFamily: 'var(--font-body)' }}
+            >
+              Reservations & Support
+            </h4>
+            <div className="flex flex-col gap-2 text-sm text-[var(--color-ash-light)] font-light">
+              <a href="tel:+918591994866" className="hover:text-[var(--color-champagne)] transition-colors flex items-center gap-2">
+                <span>📞</span> +91 85919 94866
+              </a>
+              <a href="mailto:sagamontana8@gmail.com" className="hover:text-[var(--color-champagne)] transition-colors flex items-center gap-2 truncate">
+                <span>✉️</span> sagamontana8@gmail.com
+              </a>
+              <a
+                href="https://wa.me/918591994866?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20SaGa%20Montana%20and%20availability."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#25D366] transition-colors flex items-center gap-2 text-xs text-white/90 pt-1"
+              >
+                <span>💬</span> Chat with us on WhatsApp
+              </a>
+            </div>
+
+            <div className="pt-2 text-[0.65rem] text-[var(--color-ash)] uppercase tracking-wider">
+              Check-in: 1:00 PM · Check-out: 11:00 AM
+            </div>
           </div>
 
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col justify-center items-center gap-5 text-center" style={{ borderTop: '1px solid', borderImage: 'linear-gradient(90deg, transparent, rgba(201,167,74,0.4), rgba(212,175,55,0.6), rgba(201,167,74,0.4), transparent) 1' }}>
-          <p className="text-xs md:text-sm tracking-[0.1em] text-[var(--color-ash)] uppercase" style={{ fontFamily: 'var(--font-body)' }}>
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <p className="text-xs text-[var(--color-ash)] tracking-wider uppercase">
             © {currentYear} SaGa Montana. All Rights Reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-x-7 gap-y-3 text-xs md:text-sm tracking-[0.1em] text-[var(--color-ash)] uppercase" style={{ fontFamily: 'var(--font-body)' }}>
-            <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">Privacy</a>
-            <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">Terms</a>
+
+          <div className="flex items-center gap-6 text-xs text-[var(--color-ash)] tracking-wider uppercase">
+            <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-[var(--color-champagne)] transition-colors">
+              Terms & Conditions
+            </a>
             <button
               onClick={onOwnerLogin}
-              className="hover:text-[var(--color-champagne)] transition-colors cursor-pointer bg-transparent border-none"
-              style={{ fontFamily: 'inherit', fontSize: 'inherit', letterSpacing: 'inherit', textTransform: 'inherit' as const, color: 'inherit', padding: 0 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded border border-[var(--color-champagne)]/30 text-[var(--color-champagne)] hover:bg-[var(--color-champagne)]/10 hover:border-[var(--color-champagne)] transition-all cursor-pointer bg-transparent text-xs"
             >
-              Owner Login 🔒
+              <span>Owner Access</span>
+              <span>🔒</span>
             </button>
           </div>
         </div>

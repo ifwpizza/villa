@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchGallery, type GalleryItem } from '../lib/ownerApi';
 
-const galleryItems = [
+export const DEFAULT_GALLERY_ITEMS: GalleryItem[] = [
   { src: '/images/hero-sunset-pool.jpeg', title: 'Sunset & Pool', tall: true },
   { src: '/images/living-room-day.jpeg', title: 'Living Room' },
   { src: '/images/lawn-pool-mountain.jpeg', title: 'Pool & Mountains', tall: true },
@@ -34,8 +35,21 @@ const galleryItems = [
 ];
 
 export default function Gallery() {
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(DEFAULT_GALLERY_ITEMS);
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [slideStart, setSlideStart] = useState(0);
+
+  useEffect(() => {
+    fetchGallery()
+      .then((data) => {
+        if (data && Array.isArray(data.photos) && data.photos.length > 0) {
+          setGalleryItems(data.photos);
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not load dynamic gallery, using default list:', err);
+      });
+  }, []);
 
   const openLightbox = (idx: number) => setLightboxIdx(idx);
   const closeLightbox = () => setLightboxIdx(null);
@@ -44,7 +58,7 @@ export default function Gallery() {
   const previousSlide = () => setSlideStart(prev => (prev === 0 ? galleryItems.length - 1 : prev - 1));
   const nextSlide = () => setSlideStart(prev => (prev === galleryItems.length - 1 ? 0 : prev + 1));
   const visibleItems = [0, 1, 2].map(offset => {
-    const index = (slideStart + offset) % galleryItems.length;
+    const index = (slideStart + offset) % (galleryItems.length || 1);
     return { ...galleryItems[index], index };
   });
 

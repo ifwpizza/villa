@@ -15,7 +15,7 @@ import {
   signOwnerToken,
 } from './middleware/auth.js';
 import { logSecurityEvent } from './securityLogger.js';
-import { readAvailability, writeAvailability } from './storage.js';
+import { readAvailability, writeAvailability, readGallery, writeGallery } from './storage.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -58,9 +58,12 @@ export function createApp() {
 }
 
 async function buildApp() {
+  if (!process.env.OWNER_PASSWORD_HASH && process.env.OWNER_PASSWORD) {
+    process.env.OWNER_PASSWORD_HASH = bcrypt.hashSync(process.env.OWNER_PASSWORD.trim(), 10);
+  }
   if (!process.env.OWNER_PASSWORD_HASH) {
     throw new Error(
-      'OWNER_PASSWORD_HASH must be set in environment. Generate with: node -e "require(\'bcryptjs\').hashSync(\'your-password\', 12)" | xargs -I {} echo OWNER_PASSWORD_HASH={}'
+      'OWNER_PASSWORD_HASH or OWNER_PASSWORD must be set in environment.'
     );
   }
 
@@ -68,7 +71,7 @@ async function buildApp() {
 
   applySecurityMiddleware(app);
   app.use(cookieParser());
-  app.use(express.json({ limit: '16kb' }));
+  app.use(express.json({ limit: '10mb' }));
 
   app.get('/api/availability', async (_req, res) => {
     try {
@@ -94,7 +97,13 @@ async function buildApp() {
     }
 
     try {
-      const match = await bcrypt.compare(password, process.env.OWNER_PASSWORD_HASH);
+      let match = false;
+      if (process.env.OWNER_PASSWORD_HASH) {
+        match = await bcrypt.compare(password, process.env.OWNER_PASSWORD_HASH);
+      }
+      if (!match && process.env.OWNER_PASSWORD) {
+        match = (password === process.env.OWNER_PASSWORD);
+      }
       if (!match) {
         logSecurityEvent('login_failed', { ip: req.ip });
         return res.status(401).json({ error: 'Invalid credentials' });
@@ -139,6 +148,79 @@ async function buildApp() {
         console.error('Error writing availability:', err.message);
         logSecurityEvent('availability_update_failed', { ip: req.ip, error: 'internal_error' });
         res.status(500).json({ error: 'Failed to update availability' });
+      }
+    }
+  );
+
+  app.get('/api/gallery', async (_req, res) => {
+    try {
+      res.json(await readGallery());
+    } catch (err) {
+      console.error('Error reading gallery:', err.message);
+      res.status(500).json({ error: 'Failed to read gallery data' });
+    }
+  });
+
+  app.put(
+    '/api/gallery',
+    authenticateToken,
+    doubleCsrfProtection,
+    async (req, res) => {
+      const photos = req.body?.photos;
+      if (!Array.isArray(photos)) {
+        return res.status(400).json({ error: 'photos must be an array' });
+      }
+      if (photos.length > 200) {
+        return res.status(400).json({ error: 'Too many photos (max 200)' });
+      }
+
+      try {
+        await writeGallery(photos);
+        logSecurityEvent('gallery_updated', { ip: req.ip, count: photos.length });
+        res.json({ success: true, photos });
+      } catch (err) {
+        console.error('Error writing gallery:', err.message);
+        logSecurityEvent('gallery_update_failed', { ip: req.ip, error: 'internal_error' });
+        res.status(500).json({ error: 'Failed to update gallery' });
+      }
+    }
+  );
+
+  app.post(
+    '/api/upload',
+    authenticateToken,
+    doubleCsrfProtection,
+    async (req, res) => {
+      const { dataUrl, filename } = req.body || {};
+      if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/')) {
+        return res.status(400).json({ error: 'Invalid image data' });
+      }
+
+      try {
+        const matches = dataUrl.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+        if (!matches) {
+          return res.json({ url: dataUrl });
+        }
+
+        const ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
+        const buffer = Buffer.from(matches[2], 'base64');
+
+        const uploadsDir = path.join(__dirname, '..', 'public', 'images', 'uploads');
+        if (!fs.existsSync(uploadsDir)) {
+          fs.mkdirSync(uploadsDir, { recursive: true });
+        }
+
+        const sanitizedName = (filename || 'photo')
+          .replace(/[^a-zA-Z0-9.-]/g, '_')
+          .replace(/\.[^/.]+$/, '');
+        const uniqueFilename = `${Date.now()}_${sanitizedName}.${ext}`;
+        const filePath = path.join(uploadsDir, uniqueFilename);
+
+        fs.writeFileSync(filePath, buffer);
+        res.json({ url: `/images/uploads/${uniqueFilename}` });
+      } catch (err) {
+        console.warn('Failed to write photo to disk, returning dataUrl fallback:', err.message);
+        res.json({ url: dataUrl });
       }
     }
   );

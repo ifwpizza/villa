@@ -58,3 +58,49 @@ export async function fetchAvailability(): Promise<{ bookedDates: string[] }> {
   }
   return res.json();
 }
+
+export interface GalleryItem {
+  src: string;
+  title: string;
+  tall?: boolean;
+}
+
+export async function fetchGallery(): Promise<{ photos: GalleryItem[] | null }> {
+  const res = await apiFetch('/api/gallery');
+  if (!res.ok) {
+    throw new Error('Failed to load gallery');
+  }
+  return res.json();
+}
+
+export async function saveGallery(photos: GalleryItem[]): Promise<Response> {
+  const csrfToken = await getCsrfToken();
+  return apiFetch('/api/gallery', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken,
+    },
+    body: JSON.stringify({ photos }),
+  });
+}
+
+export async function uploadPhoto(dataUrl: string, filename: string): Promise<{ url: string }> {
+  const csrfToken = await getCsrfToken();
+  const res = await apiFetch('/api/upload', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken,
+    },
+    body: JSON.stringify({ dataUrl, filename }),
+  });
+
+  if (!res.ok) {
+    // If endpoint fails, return dataUrl directly as fallback
+    return { url: dataUrl };
+  }
+  return res.json();
+}
+
+

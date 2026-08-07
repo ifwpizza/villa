@@ -745,6 +745,41 @@ body {
   border-color: rgba(201, 167, 74, 0.3);
 }
 
+.owner-tab-btn {
+  padding: 0.5rem 0.9rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-ash);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.owner-tab-btn:hover {
+  color: var(--color-warm-white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.owner-tab-active {
+  background: rgba(201, 167, 74, 0.15) !important;
+  color: var(--color-champagne) !important;
+  border-color: rgba(201, 167, 74, 0.3) !important;
+}
+
+.owner-form-label {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
 .owner-main {
   padding: clamp(1.5rem, 4vw, 3rem);
 }
